@@ -5,12 +5,12 @@ try:
     cur = conn.cursor()
 except Exception as e:
     print(e)
-conn = psycopg2.connect(
-    host="localhost",
-    database="samosa_march",
-    user="postgres",
-    password="leo.steve"
-)
+# conn = psycopg2.connect(
+#     host="localhost",
+#     database="samosa_march",
+#     user="postgres",
+#     password="leo.steve"
+
 
 
 def fetch_data(tbln):
@@ -29,7 +29,7 @@ def insert_product(vs):
         "values"+vs
         cur.execute(q)
         conn.commit
-        return "Product Successfully added"
+        return "Product Successfully added"     
    
 
 
