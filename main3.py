@@ -1,3 +1,4 @@
+from main3 import insert_product,fetch_data
 import psycopg2
 
 try:
