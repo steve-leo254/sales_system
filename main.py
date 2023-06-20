@@ -17,10 +17,7 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/index")
-def about():
-    #LOAD RECORS FROM DB HERE
-    return "front page"
+
 
 
 @app.route('/products')
