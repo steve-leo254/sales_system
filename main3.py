@@ -1,4 +1,4 @@
-from main3 import insert_product,fetch_data
+from main3 import insert_product
 import psycopg2
 
 try:
@@ -29,3 +29,6 @@ def insert_sales(vs):
         return "Sales successfully added"
     except Exception as e:
         return str(e)
+    
+
+

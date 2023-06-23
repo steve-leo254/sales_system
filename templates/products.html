@@ -14,9 +14,9 @@
   <div>
     <li><a href="/"></a></li>
     <li><a href="/products">products</a></li>
-  
+
     <ul>
-      
+
     </ul>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
@@ -59,13 +59,13 @@
                 <a class="nav-link disabled">stocks</a>
               </li>
             </div>
-  
+
           </ul>
-          
+
         </div>
       </div>
     </nav>
-   
+
   </div>
   <div>
     <table id="myTable" class="display">
@@ -90,22 +90,46 @@
         {% endfor %}
       </tbody>
     </table>
-    
+
   </div>
-  
-  
+
+  <form action="/addproducts" method="post">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Name</label>
+      <input name="name" type="text" class="form-control" aria-describedby="Name">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Buying price</label>
+      <input name="buying_price" type="text" class="form-control" id="buying_price">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">selling price</label>
+      <input name="selling_price" type="text" class="form-control" id="selling">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Stock_quantity</label>
+      <input name="quantity" type="text" class="form-control" id="selling">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  </form>
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>
-    <script 
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
 
     </script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-    <script>
-      let table = new DataTable('#myTable');
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+  <script>
+    let table = new DataTable('#myTable');
 
-    </script>
+  </script>
 
 </body>
 

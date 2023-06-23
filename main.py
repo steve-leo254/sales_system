@@ -1,4 +1,4 @@
-from flask import Flask ,render_template
+from flask import Flask ,render_template,request,redirect
 from main2 import insert_product,fetch_data
 
 
@@ -21,13 +21,26 @@ def home():
 
 
 @app.route('/products')
-def products ():
-    prods =fetch_data("products")
+def products():
+    prods = fetch_data("products")
     return render_template('products.html', prods=prods)
 
-@app.route('/sales')
-def sales():
-    sales = fetch_data("sales")
-    return render_template('sales.html', sales=sales)
+@app.route('/addproducts', methods=["POST","GET"])
+def addproducts():
+    if request.method == "POST":
+        name = request.form["name"]
+        buying_price = request.form["buying_price"]
+        selling_price = request.form["selling_price"]
+        quantity = request.form["quantity"]
+        print(name)
+        print(buying_price)
+        print(selling_price)
+        print(quantity)
+        products = (name, buying_price, selling_price, quantity)
+        insert_product(products)
+        return redirect("/products")
 
-app.run()
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
