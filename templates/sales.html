@@ -76,7 +76,7 @@
         <th>ID</th>
         <th>Product ID</th>
         <th>Quantity</th>
-        <th>Created At</th>
+        <th>Time</th>
       </tr>
     </thead>
     <tbody>
@@ -93,6 +93,27 @@
   
     
   </div>
+  <form action="/addsales" method="post">
+    <div class="mb-3">
+      <label for="exampleInputname" class="form-label">ID</label>
+      <input name="id" type="text" class="form-control" aria-describedby="Name">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputname" class="form-label">pid</label>
+      <input name="pid" type="text" class="form-control" id="buying_price">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputquantiy" class="form-label">quantity</label>
+      <input name="quantity" type="text" class="form-control" id="selling">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputTime" class="form-label">Time</label>
+      <input name="time" type="text" class="form-control" id="selling">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  </form>
   
 
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
