@@ -26,7 +26,7 @@ def insert_sales(v):
 
 def insert_products(v):
     vs = str(v)
-    q = "insert into products(name,buying_price,selling_price,stock_quantity) "\
+    q = "insert into products(name,buying_price,selling_price,quantity) "\
         "values" + vs
     cur.execute(q)
     conn.commit()

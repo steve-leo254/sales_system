@@ -21,7 +21,7 @@ def addproducts():
         buying_price = request.form["buying_price"]
         selling_price = request.form["selling_price"]
         quantity = request.form["quantity"]
-        products = (name, buying_price, selling_price, quantity)
+        products = (name, buying_price, selling_price,quantity)
         insert_products(products)
         return redirect("/products")
     
