@@ -18,7 +18,7 @@ def fetch_data(tbln):
 
 def insert_sales(v):
     vs = str(v)
-    q = "insert into sales(pid,quantity,tine) "\
+    q = "insert into sales(pid,quantity,time) "\
         "values" + vs
     cur.execute(q)
     conn.commit()

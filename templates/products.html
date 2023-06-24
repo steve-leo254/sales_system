@@ -5,68 +5,56 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>/product</title>
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 </head>
 
 <body>
-  <div>
-    <li><a href="/"></a></li>
-    <li><a href="/products">products</a></li>
+  {% extends "layout.html" %}
+  {% block content %}
 
-    <ul>
+ <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  addproducts
+</button>
 
-    </ul>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">CLX</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Product</a>
-            </li>
-            <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Dashboard
-              </button>
-              <ul class="dropdown-menu">
-                <li><button class="dropdown-item" type="button">Action</button></li>
-                <li><button class="dropdown-item" type="button">Another action</button></li>
-                <li><button class="dropdown-item" type="button">Something else here</button></li>
-              </ul>
-            </div>
-            <div>
-              <li class="nav-item">
-                <a class="nav-link disabled">sales</a>
-              </li>
-            </div>
-            <div>
-              <li class="nav-item">
-                <a class="nav-link disabled">inventories</a>
-              </li>
-            </div>
-            <div>
-              <li class="nav-item">
-                <a class="nav-link disabled">stocks</a>
-              </li>
-            </div>
-
-          </ul>
-
-        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </nav>
-
+      <div class="modal-body">
+        <form action="/addproducts" method="post">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Name</label>
+            <input name="name" type="text" class="form-control" aria-describedby="Name">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Buying price</label>
+            <input name="buying_price" type="text" class="form-control" id="buying_price">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">selling price</label>
+            <input name="selling_price" type="text" class="form-control" id="selling">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Stock_quantity</label>
+            <input name="quantity" type="text" class="form-control" id="selling">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+      
+      
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
   </div>
+</div>
   <div>
     <table id="myTable" class="display">
       <thead>
@@ -93,43 +81,10 @@
 
   </div>
 
-  <form action="/addproducts" method="post">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Name</label>
-      <input name="name" type="text" class="form-control" aria-describedby="Name">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Buying price</label>
-      <input name="buying_price" type="text" class="form-control" id="buying_price">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">selling price</label>
-      <input name="selling_price" type="text" class="form-control" id="selling">
-    </div>
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Stock_quantity</label>
-      <input name="quantity" type="text" class="form-control" id="selling">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+  
+  {% endblock %}
 
 
-  </form>
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
-    integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer">
-
-    </script>
-  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-  <script>
-    let table = new DataTable('#myTable');
-
-  </script>
 
 </body>
 
