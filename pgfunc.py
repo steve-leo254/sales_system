@@ -34,3 +34,16 @@ def insert_products(v):
     
 
 
+
+
+def sales_per_day():
+    q = "SELECT substring(TO_CHAR(time,'MM-YYYY'),1,7) as m, SUM(quantity) as total_sales FROM sales GROUP BY m ORDER BY m;"
+    cur.execute(q)
+    results = cur.fetchall()
+    return results
+
+def sales_per_product():
+    q = " SELECT p.name, COUNT(s.*) AS total_sales FROM products p JOIN sales s ON p.id = s.pid GROUP BY p.name"
+    cur.execute(q)
+    results = cur.fetchall()
+    return results

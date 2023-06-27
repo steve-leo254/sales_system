@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect
 from pgfunc import fetch_data, insert_products
-from pgfunc import fetch_data, insert_sales, insert_products
+from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product
 import pygal
 
 
@@ -44,30 +44,36 @@ def addsale():
         sales = ( pid, quantity,'now()')
         insert_sales(sales)
         return redirect("/sales")
+
     
-@app.route('/sales_amount')
-def sales_amount():
-    # Sales per Product (Bar Chart)
+@app.route('/dashboard')
+def dashboard():
     bar_chart = pygal.Bar()
-    bar_chart.title = 'Sales per Product'
-    product_names = ['Product A', 'Product B', 'Product C', 'Product D', 'Product E']
-    sales_data = [250, 500, 350, 200, 400]
-    bar_chart.x_labels = product_names
-    bar_chart.add('Sales', sales_data)
+    sp = sales_per_product()
+    name = []
+    sale = []
+    for i in sp:
+     name.append(i[0])
+     sale.append(i[1])
+    bar_chart.title = "Sales per Product"
+    bar_chart.x_labels = name
+    bar_chart.add('Sale', sale)
     bar_chart_data = bar_chart.render_data_uri()
 
     # Sales per Day (Line Chart)
     line_chart = pygal.Line()
-    line_chart.title = 'Sales per Day'
-    # Query your table to get the data for x-axis (created_at) and y-axis (sales) for each day
-    # Assuming you have the data as two separate lists: dates and sales_per_day
-    dates = ['2023-06-01', '2023-06-02', '2023-06-03', '2023-06-04', '2023-06-05']
-    sales_per_day = [100, 150, 200, 180, 250]
+    daily_sales = sales_per_day()
+    dates = []
+    sales = []
+    for i in daily_sales:
+        dates.append(i[0])
+        sales.append(i[1])
+    line_chart.title = "Sales per Day"
     line_chart.x_labels = dates
-    line_chart.add('Sales', sales_per_day)
+    line_chart.add('Sales', sales)
     line_chart_data = line_chart.render_data_uri()
 
-    return render_template("sales_amount.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data)
+    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data)
 
 
 
