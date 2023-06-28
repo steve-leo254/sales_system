@@ -22,10 +22,10 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link " type="button" onclick="window.location.href='#'">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Product</a>
+            <a class="nav-link" type="button" onclick="window.location.href='products'">Products</a>
           </li>
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -33,24 +33,24 @@
               Dashboard
             </button>
             <ul class="dropdown-menu">
-              <li><button class="dropdown-item" type="button">Action</button></li>
-              <li><button class="dropdown-item" type="button">Another action</button></li>
-              <li><button class="dropdown-item" type="button">Something else here</button></li>
+              <li>
+                <button class="dropdown-item" type="button" onclick="window.location.href='dashboard'">dashboard</button>
+              </li>
             </ul>
           </div>
           <div>
             <li class="nav-item">
-              <a class="nav-link disabled">sales</a>
+              <a class="nav-link" type="button" onclick="window.location.href='sales'">sales</a>
             </li>
           </div>
           <div>
             <li class="nav-item">
-              <a class="nav-link disabled">inventories</a>
+              <a class="nav-link" type="button">inventories</a>
             </li>
           </div>
           <div>
             <li class="nav-item">
-              <a class="nav-link disabled">stocks</a>
+              <a class="nav-link">stocks</a>
             </li>
           </div>
 
