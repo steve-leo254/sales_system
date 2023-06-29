@@ -68,7 +68,7 @@ def dashboard():
     for i in daily_sales:
         dates.append(i[0])
         sales.append(i[1])
-    line_chart.title = "Sales per Day"
+    line_chart.title = "Sales per Month"
     line_chart.x_labels = dates
     line_chart.add('Sales', sales)
     line_chart_data = line_chart.render_data_uri()
