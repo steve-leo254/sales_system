@@ -15,6 +15,13 @@ def products():
     prods = fetch_data("products")
     return render_template('products.html', prods=prods)
 
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
 
 @app.route('/addproducts', methods=["POST", "GET"])
 def addproducts():
