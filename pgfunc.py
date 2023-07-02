@@ -47,3 +47,9 @@ def sales_per_product():
     cur.execute(q)
     results = cur.fetchall()
     return results
+
+def select_users_data():
+    q = "select email, full_name, password FROM users"
+    cur.execute(q)
+    results = cur.fetchall()
+    return results

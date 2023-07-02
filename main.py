@@ -15,13 +15,6 @@ def products():
     prods = fetch_data("products")
     return render_template('products.html', prods=prods)
 
-@app.route('/login')
-def login():
-    return render_template('login.html')
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
 
 @app.route('/addproducts', methods=["POST", "GET"])
 def addproducts():
@@ -81,6 +74,35 @@ def dashboard():
     line_chart_data = line_chart.render_data_uri()
 
     return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data)
+
+
+@app.route('/login')
+def login():
+    
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+
+@app.route('/register', methods=["POST", "GET"])
+def adduser():
+   error1 = None
+   if request.method=="POST":
+      full_name= request.form["full_name"]
+      email=request.form["email"]
+      password=request.form["password"]
+      confirm_password=request.form["confirm_password"]
+      if password != confirm_password:
+         error1 = "password do not match! please enter again."
+
+   users=(full_name,email,password,confirm_password,'now()')
+   add_user(users)
+   return render_template("register.html", error1=error1)
+
+
 
 
 
