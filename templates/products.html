@@ -11,12 +11,26 @@
 <body>
   {% extends "layout.html" %}
   {% block content %}
+  <style>
+    .center-button {
+    top:50%;
+    background-color:#12a850;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    padding:15px;
+    min-height:25px;
+    float: right; 
+    min-width: 100px;
+    
+    }
+  </style>
 
 <div class="container">
 
  <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Add Products
+<button type="button" class="center-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  CLICK ME!
 </button>
 
 <!-- Modal -->
@@ -24,7 +38,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">products</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">ADD PRODUCTS</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

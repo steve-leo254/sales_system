@@ -10,79 +10,92 @@
 <body>
     {% extends "layout.html" %}
     {% block content %}
+    <style>
+        .center-button {
+        top:50%;
+        background-color:#12a850;
+        color: #fff;
+        border:none; 
+        border-radius:10px; 
+        padding:15px;
+        min-height:25px;
+        float: right; 
+        min-width: 100px;
+        
+    }
+    </style>
+
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button type="button" class="center-button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            CLICK ME !
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">ADD SALES</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/addsales" method="post">
+                            <div class="mb-3">
+                                <label for="exampleInputname" class="form-label">ID</label>
+                                <input name="id" type="text" class="form-control" aria-describedby="Name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputname" class="form-label">Pid</label>
+                                <input name="pid" type="text" class="form-control" id="buying_price">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputquantiy" class="form-label">Quantity</label>
+                                <input name="quantity" type="text" class="form-control" id="selling">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputTime" class="form-label">Time</label>
+                                <input name="time" type="text" class="form-control" id="selling">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
 
 
-<div class="container">
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Sales
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sales</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="/addsales" method="post">
-                        <div class="mb-3">
-                            <label for="exampleInputname" class="form-label">ID</label>
-                            <input name="id" type="text" class="form-control" aria-describedby="Name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputname" class="form-label">Pid</label>
-                            <input name="pid" type="text" class="form-control" id="buying_price">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputquantiy" class="form-label">Quantity</label>
-                            <input name="quantity" type="text" class="form-control" id="selling">
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputTime" class="form-label">Time</label>
-                            <input name="time" type="text" class="form-control" id="selling">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
-
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <div>
+
+            <table id="myTable" class="display">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product ID</th>
+                        <th>Quantity</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sale in sales %}
+                    <tr>
+                        <td>{{ sale[0] }}</td>
+                        <td>{{ sale[1] }}</td>
+                        <td>{{ sale[2] }}</td>
+                        <td>{{ sale[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+
     </div>
-
-    <div>
-
-        <table id="myTable" class="display">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product ID</th>
-                    <th>Quantity</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for sale in sales %}
-                <tr>
-                    <td>{{ sale[0] }}</td>
-                    <td>{{ sale[1] }}</td>
-                    <td>{{ sale[2] }}</td>
-                    <td>{{ sale[3] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
-
-</div>
 
     {% endblock %}
 
