@@ -1,16 +1,268 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Markvel - Responsive Agency HTML Template</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Markvel - Responsive Agency HTML Template">
+    <meta name="keywords"
+        content="Markvel, agency, business, company, consulting, consulting html template, coran, corporate, digital agency, marketing, responsive">
+
+    <!-- Plugin css -->
+    <link href="/static/css/plugins/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/slick.css" rel="stylesheet">
+    <link href="/static/css/plugins/ion.rangeSlider.min.css" rel="stylesheet">
+    <link href="/static/css/plugins/magnific-popup.css" rel="stylesheet">
+    <link href="/static/fonts/flaticon/flaticon.css" rel="stylesheet">
+    <link href="/static/fonts/font-awesome.min.css" rel="stylesheet">
+    <!-- Main css -->
+    <link href="/static/css/style.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/static/img/favicon.png" type="image/x-icon">
 </head>
+
 <body>
-    
-    
-    <h1>My page</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, fuga error placeat aliquam optio quis aspernatur asperiores magnam ratione voluptatum dolor quo, nulla facilis repellat eius sunt quas ea aliquid.</p>
-    <a href="{{ url_for('register') }}">Don't have an account Signup?</a>
-    <a href="{{ url_for('login') }}">Have an account login now</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <!-- Container wrapper -->
+        <div class="container">
+            <!-- Navbar brand -->
+            <a class="navbar-brand me-2" href="">
+                <!-- <img
+          src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp"
+          height="16"
+          alt="MDB Logo"
+          loading="lazy"
+          style="margin-top: -1px;"
+        /> -->
+            </a>
+
+            <!-- Toggle button -->
+            <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarButtonsExample" aria-controls="navbarButtonsExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarButtonsExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-link px-3 me-2"><a href="{{ url_for('login') }}">
+                        Login
+                        </a>
+                    </button>
+                    <button type="button" class="btn btn-primary me-3" ><a href="{{ url_for('register') }}">
+                        Sign up 
+                      </a>
+                    </button>
+                    <a class="btn btn-dark px-3" href="https://github.com/mdbootstrap/mdb-ui-kit" role="button"><i
+                            class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <!-- Collapsible wrapper -->
+        </div>
+        <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+    <!--subheader Start-->
+    <!-- <div id="section-subheader">
+    <div class="sigma_subheader style-10">
+      <div class="container">
+        <div class="sigma_subheader-inner">
+          <h1>Portfolio</h1>
+        </div>
+      </div>
+    </div> -->
+    <!--subheader End-->
+    </div>
+    <!--portfolio Start-->
+    <div id="section-portfolio">
+        <div class="section sigma_about-sec extra-padding style-17 bg-center bg-cover dark-overlay"
+            style="background-image: url(/static/img/portfolio/1920x800.jpg)">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="sigma_about style-17 mb-5 mb-lg-0">
+                            <div class="section-title">
+                                <span class="subtitle">CLX</span>
+                                <h3 class="title text-white">Access Your Business In Seconds </h3>
+                            </div>
+                            <div class="sigma_about-content">
+                                <p class="m-0">Unlock the Power of Proximity with CLX:
+                                     Connecting You Seamlessly to Your Business, 
+                                    Amplifying Growth, and Creating Lasting Relationships for Success.
+                                </p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="sigma_about style-17">
+                            <div class="sigma_about-image-1">
+                                <img src="/static/img/portfolio/570x460.jpg" alt="img">
+                                <a href="#" class="sigma_video-btn popup-video">
+                                    <i class="far fa-play"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section bg-gray pt-0">
+            <div class="sigma_portfolio-wrapper style-13">
+                <div class="container">
+                    <div class="section-title flex-title">
+                        <div class="section-title-heading">
+                            <span class="subtitle">CLX Web</span>
+                            <h3 class="title text-white mb-0">Presents</h3>
+                        </div>
+                        <div class="sigma_custom-arrows mt-4 mt-sm-0">
+                            <i class="fal fa chevron-left slick-prev"></i>
+                            <i class="fal fa chevron-right slick-next"></i>
+                        </div>
+                    </div>
+                    <div class="sigma_portfolio-slider-5">
+                        <div class="sigma_portfolio style-13">
+                            <span>Stock</span>
+                            <div class="sigma_portfolio-thumb">
+                                <img src="/static/img/portfolio/545x382.jpg" alt="portfolio">
+                                <div class="sigma_portfolio-content">
+                                    <div class="sigma_portfolio-categories">
+                                        <a href="#" class="sigma_portfolio-category">Record Stocks</a>
+                                    </div>
+                                    <h5>
+                                        <a href="#"> Stocks</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sigma_portfolio style-13">
+                            <span>Monitor</span>
+                            <div class="sigma_portfolio-thumb">
+                                <img src="/static/img/portfolio/545x382-0.jpg" alt="portfolio">
+                                <div class="sigma_portfolio-content">
+                                    <div class="sigma_portfolio-categories">
+                                        <a href="#" class="sigma_portfolio-category">Record Sales</a>
+                                    </div>
+                                    <h5>
+                                        <a href="#">Sales</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sigma_portfolio style-13">
+                            <span>Monitor</span>
+                            <div class="sigma_portfolio-thumb">
+                                <img src="/static/img/portfolio/545x382-1.jpg" alt="portfolio">
+                                <div class="sigma_portfolio-content">
+                                    <div class="sigma_portfolio-categories">
+                                        <a href="#" class="sigma_portfolio-category">Review Sales</a>
+                                    </div>
+                                    <h5>
+                                        <a href="#">Visialize</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sigma_portfolio style-13">
+                            <span>Case Details</span>
+                            <div class="sigma_portfolio-thumb">
+                                <img src="/static/img/portfolio/545x382-2.jpg" alt="portfolio">
+                                <div class="sigma_portfolio-content">
+                                    <div class="sigma_portfolio-categories">
+                                        <a href="#" class="sigma_portfolio-category">Generate Product</a>
+                                    </div>
+                                    <h5>
+                                        <a href="#">Production</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="sigma_portfolio-contact">Get attention type work from us.
+                        <a href="#">Let Us Know</a>
+                    </h5>
+                </div>
+            </div>
+        </div>
+        <!--portfolio End-->
+    </div>
+    <!--to-top Start-->
+    <div id="section-to-top">
+        <div class="sigma_top style-3">
+            <i class="far fa-arrow-up"></i>
+        </div>
+        <!--to-top End-->
+    </div>
+    <!--footer Start-->
+    <div id="section-footer">
+        <footer class="sigma_footer sigma_footer-sec">
+            <div class="container">
+                <div class="sigma_footer-middle text-center">
+                    <div class="sigma_footer-logo">
+                        <img src="/static/img/logo.png" alt="logo">
+                    </div>
+                    <ul class="sigma_footer-links">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">About</a>
+                        </li>
+                        <li>
+                            <a href="#">Blog</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="sigma_social-icons">
+                        <li>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </li>
+                    </ul>
+                    <div class="sigma_footer-copyright">
+                        <p class="mb-0">Copyright © 2023. All rights reserved to CLX
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--footer End-->
+    </div>
+    <script src="/static/js/plugins/jquery-3.4.1.min.js"></script>
+    <script src="/static/js/plugins/popper.min.js"></script>
+    <script src="/static/js/plugins/bootstrap.min.js"></script>
+    <script src="/static/js/plugins/jquery.instagramFeed.min.js"></script>
+    <script src="/static/js/plugins/slick.min.js"></script>
+    <script src="/static/js/plugins/imagesloaded.min.js"></script>
+    <script src="/static/js/plugins/isotope.pkgd.min.js"></script>
+    <script src="/static/js/plugins/jquery.magnific-popup.min.js"></script>
+    <script src="/static/js/plugins/jquery.counterup.min.js"></script>
+    <script src="/static/js/plugins/jquery.inview.min.js"></script>
+    <script src="/static/js/plugins/ion.rangeSlider.min.js"></script>
+    <script src="js/plugins/jquery.validate.min.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/functions/mf_form.js"></script>
+
+
 </body>
+
+
 </html>
