@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,url_for
 from pgfunc import fetch_data, insert_products
-from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product
+from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users
 import pygal
 
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/index')
 def home():
     return render_template("index.html")
 
@@ -87,8 +87,8 @@ def register():
 
 
 
-@app.route('/register', methods=["POST", "GET"])
-def adduser():
+@app.route('/signup', methods=["POST", "GET"])
+def addusers():
    error1 = None
    if request.method=="POST":
       full_name= request.form["full_name"]
@@ -99,7 +99,7 @@ def adduser():
          error1 = "password do not match! please enter again."
 
    users=(full_name,email,password,confirm_password,'now()')
-   add_user(users)
+   add_users(users)
    return render_template("register.html", error1=error1)
 
 

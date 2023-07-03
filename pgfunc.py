@@ -48,8 +48,10 @@ def sales_per_product():
     results = cur.fetchall()
     return results
 
-def select_users_data():
-    q = "select email, full_name, password FROM users"
+def add_users(v):
+    vs = str(v)
+    q = "insert into users(full_name,email, password, confirm_password, time) "\
+        "values" + vs
     cur.execute(q)
-    results = cur.fetchall()
-    return results
+    conn.commit()
+    return q

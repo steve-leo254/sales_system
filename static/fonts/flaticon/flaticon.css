@@ -1,0 +1,74 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("flaticon4db7.ttf?31fa72ad5175b685e231accf0dc8a0e0") format("truetype"),
+url("flaticon4db7.woff?31fa72ad5175b685e231accf0dc8a0e0") format("woff"),
+url("flaticon4db7.woff2?31fa72ad5175b685e231accf0dc8a0e0") format("woff2"),
+url("flaticon4db7.eot?31fa72ad5175b685e231accf0dc8a0e0#iefix") format("embedded-opentype"),
+url("flaticon4db7.svg?31fa72ad5175b685e231accf0dc8a0e0#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before,
+i[class*=" flaticon-"]:before,
+span[class^="flaticon-"]:before,
+span[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-translate:before {
+    content: "\f103";
+}
+.flaticon-translation:before {
+    content: "\f106";
+}
+.flaticon-open-book:before {
+    content: "\f109";
+}
+.flaticon-studying:before {
+    content: "\f104";
+}
+.flaticon-slate:before {
+    content: "\f108";
+}
+.flaticon-studies:before {
+    content: "\f106";
+}
+.flaticon-electronic-book:before {
+    content: "\f107";
+}
+.flaticon-worldwide:before {
+    content: "\f108";
+}
+.flaticon-discussion:before {
+    content: "\f109";
+}
+.flaticon-public-speaking:before {
+    content: "\f10d";
+}
+.flaticon-speech:before {
+    content: "\f10b";
+}
+.flaticon-dictation:before {
+    content: "\f10f";
+}
+.flaticon-politics:before {
+    content: "\f10d";
+}
+.flaticon-microphone:before {
+    content: "\f109";
+}
+.flaticon-social-media:before {
+    content: "\f10f";
+}
+.flaticon-partnership-handshake:before {
+    content: "\f110";
+}
+.flaticon-languages:before {
+    content: "\f110";
+}

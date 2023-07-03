@@ -23,7 +23,7 @@
       box-sizing: border-box;
   }
   body{
-      background-color: #080710;
+      background-color: #5541ec;
   }
   .background{
       width: 430px;
@@ -141,29 +141,29 @@
       </style>
 </head>
 <body>
-    {% extends "layout.html" %}
-    {% block content %}
+    
     <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
     <form>
         <h3>Login Here</h3>
-
+    
         <label for="username">Username</label>
         <input type="text" placeholder="Email or Phone" id="username">
-
+    
         <label for="password">Password</label>
         <input type="password" placeholder="Password" id="password">
-
-        <button>Log In</button>
+    
+        <button type="submit">Log In</button>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
           <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
         </div>
-    </form>
+        <a href="{{ url_for('register') }}">Don't have an account Signup?</a>
+      </form>
 </body>
-{% endblock %}
+
 </html>
 
 </body>

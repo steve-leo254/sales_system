@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>index</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Markvel - Responsive Agency HTML Template">
+  <meta name="keywords"
+    content="Markvel, agency, business, company, consulting, consulting html template, coran, corporate, digital agency, marketing, responsive">
+
+  <!-- Plugin css -->
+  <link href="/static/static/css/plugins/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/css/plugins/slick.css" rel="stylesheet">
+  <link href="/static/css/plugins/ion.rangeSlider.min.css" rel="stylesheet">
+  <link href="/static/css/plugins/magnific-popup.css" rel="stylesheet">
+  <link href="/static/fonts/flaticon/flaticon.css" rel="stylesheet">
+  <link href="/static/fonts/font-awesome.min.css" rel="stylesheet">
+  <!-- Main css -->
+  <link href="/static/css/style.css" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="/static/img/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+  {% extends "layout.html" %}
+  {% block content %}
+  <div class="btn-style-1 btn-rounded sidebar-style-2">
+
+    <!--header Start-->
+    <div id="section-header">
+      <aside class="sigma_aside sigma_aside-desktop">
+        <div class="sidebar">
+          <!-- Recent Posts Widget -->
+          <div class="widget widget-sigma-recent-posts style-3">
+            <h1>Login and Sign</h1>
+            <a href="{{ url_for('login') }}">Login</a><br>
+            <a href="{{ url_for('register') }}">Register Account</a>
+
+            <div class="author-info d-flex align-items-center">
+              <span>LS</span>
+              <div>
+                <a href="#" class="author-name">Steve Lee</a>
+                <a href="#" class="date">April 7, 2023</a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- Follow Widget -->
+    <div class="widget widget-follow">
+      <h5 class="widget-title">Follow Us</h5>
+      <div class="social-buttons">
+        <a href="#" class="sigma_btn">
+          <div class="follow-icon d-flex align-items-center">
+            <i class="fab fa-instagram"></i>
+            <p class="mb-0">
+              Instagram
+              <span>225.5k Followers</span>
+            </p>
+          </div>
+          <i class="fal fa-chevron-right"></i>
+        </a>
+        <a href="#" class="sigma_btn">
+          <div class="follow-icon d-flex align-items-center">
+            <i class="fab fa-twitter"></i>
+            <p class="mb-0">
+              Twitter
+              <span>225.5k Followers</span>
+            </p>
+          </div>
+          <i class="fal fa-chevron-right"></i>
+        </a>
+        <a href="#" class="sigma_btn">
+          <div class="follow-icon d-flex align-items-center">
+            <i class="fab fa-facebook-f"></i>
+            <p class="mb-0">
+              Facebook
+              <span>225.5k Followers</span>
+            </p>
+          </div>
+          <i class="fal fa-chevron-right"></i>
+        </a>
+        <a href="#" class="sigma_btn">
+          <div class="follow-icon d-flex align-items-center">
+            <i class="fab fa-youtube"></i>
+            <p class="mb-0">
+              Youtube
+              <span>225.5k Followers</span>
+            </p>
+          </div>
+          <i class="fal fa-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+    <!-- Subscribe Widget -->
+    <div class="widget widget-newsletter">
+      <h5 class="widget-title">Join Newsletter</h5>
+      <form method="post">
+        <input type="email" name="email" placeholder="Enter your email">
+        <button type="button" class="d-block w-100 mt-4">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  </aside>
+  <div class="sigma_aside-overlay aside-trigger-right">
+  </div>
+
+  <div class="sigma_aside-overlay aside-trigger">
+  </div>
+
+  </header>
+  <div class="search-form-wrapper">
+    <div class="search-trigger sigma_close">
+      <span></span>
+      <span></span>
+    </div>
+    <form class="search-form" method="post">
+      <input type="text" placeholder="Search..." value="">
+      <button type="submit" class="search-btn">
+        <i class="fal fa-search m-0"></i>
+      </button>
+    </form>
+  </div>
+  <!--header End-->
+  </div>
+  <!--hero Start-->
+  <div id="section-hero">
+    <div class="sigma_banner light-bg style-10">
+      <div class="banner-slider-inner">
+        <div class="sigma_animated-shapes d-none d-md-block">
+          <div class="shape-1">
+          </div>
+          <div class="shape-2">
+          </div>
+          <div class="shape-3">
+          </div>
+          <div class="shape-4">
+          </div>
+        </div>
+        <div class="sigma_banner-text">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-6">
+                <h5 class="primary-color">CLX Brings You Closer To Your Business</h5>
+                <h1 class="title">
+                  Access Your <br>Business In Seconds
+                </h1>
+                <div class="banner-links d-flex align-items-center">
+                  <a href="#" class="sigma_btn">Get Started</a>
+                  <a href="#" class="sigma_btn light ms-4">Read more</a>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="sigma_banner-image has-animation hover-2 overflow-hidden mt-5 mt-lg-0">
+                  <img src="/static/img/home-1/540x540.png" alt="img">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--hero End-->
+  </div>
+  <!--about Start-->
+  <div id="section-about">
+    <div class="section section-padding sigma_about-sec">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="sigma_about style-3">
+              <div class="sigma_about-image-1">
+                <img src="/static/img/home-1/450x400.jpg" alt="img">
+              </div>
+              <div class="sigma_about-image-2 d-none d-sm-block">
+                <img src="/img/home-1/420x310.jpg" alt="img">
+              </div>
+              <span class="sigma_about-exp">
+                <span class="primary-color">5</span> Years Of
+                <br>Experience
+              </span>
+              <a href="https://www.youtube.com/watch?v=AdZrEIo6UYU" class="sigma_video-btn popup-video">
+                <i class="far fa-play"></i>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="sigma_about style-3 ps-lg-4 mt-5 mt-lg-0">
+              <div class="section-title">
+                <span class="subtitle">About us</span>
+                <h3 class="title">Trusted & Tested App <span class="primary-color"> Hub</span>
+                </h3>
+                <h4>When it comes to making handling business operations, it’s easy to get caught up in the weeds.
+                </h4>
+              </div>
+              <div class="sigma_about-content">
+                <p class="m-0">With CLX by userside , You get more tools and resources to conquer everyday work
+                  challenges and increase your business
+                  potential.</p>
+
+                <a href="#" class="sigma_btn">Learn more</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--about End-->
+  </div>
+  <!--services Start-->
+  <div id="section-services">
+    <div class="section section-padding sigma_service-sec">
+      <div class="container">
+        <div class="section-title centered">
+          <h3 class="title">Services <span class="primary-color">We Can Help</span> We Can Help you With</h3>
+          <p>Our agile process is ability to adapt and respond to change. Agile organizations view change as an
+            opportunity, not a
+            threat.</p>
+        </div>
+        <div class="row align-items-center">
+          <div class="col-lg-5">
+            <div class="sigma_service-image style-22 text-center">
+              <img src="/static/img/home-1/445x554.jpg" alt="img">
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <div class="row g-0 mt-5 mt-lg-0">
+              <div class="col-md-6">
+                <a href="service-details.html" class="sigma_service style-22 border-right-0 border-bottom-0">
+                  <i class="flaticon-dictation is_flaticon bg-primary-1"></i>
+                  <div class="sigma_service-body">
+                    <h5>STOCK-TAKING</h5>
+                    <p> App records and analyse quantity stocks in minuites.</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="service-details.html" class="sigma_service style-22 border-bottom-0">
+                  <i class="flaticon-translate is_flaticon bg-secondary-1"></i>
+                  <div class="sigma_service-body">
+                    <h5>Mobile Apps</h5>
+                    <p>Dummy text is also used to demonstrate the appearance of different.</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="service-details.html" class="sigma_service style-22 border-right-0">
+                  <i class="flaticon-languages is_flaticon bg-primary-1"></i>
+                  <div class="sigma_service-body">
+                    <h5>Web Development</h5>
+                    <p>Dummy text is also used to demonstrate the appearance of different.</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-6">
+                <a href="service-details.html" class="sigma_service style-22">
+                  <i class="flaticon-public-speaking is_flaticon bg-secondary-1"></i>
+                  <div class="sigma_service-body">
+                    <h5>Digital Marketing</h5>
+                    <p>Dummy text is also used to demonstrate the appearance of different.</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--services End-->
+  </div>
+
+  <!--pricing Start-->
+  <div id="section-pricing">
+    <div class="section section-padding sigma_pricing-sec">
+      <div class="container">
+        <div class="section-title centered">
+          <h3 class="title">Plans & <span class="primary-color">Pricing</span>
+          </h3>
+          <p>Our agile process is ability to adapt and respond to change. Agile organizations view change as an
+            opportunity, not a
+            threat.</p>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="sigma_pricing white-bg">
+              <div class="sigma_pricing-top">
+                <span class="sigma_pricing-icon">
+                  <i class="flaticon-translation is_flaticon"></i>
+                </span>
+                <span class="sigma_pricing-title">Silver Plan </span>
+                <span class="sigma_pricing-rate">$62</span>
+                <p class="m-0">Front-end Installation is one-time only</p>
+              </div>
+
+              <a href="#" class="sigma_btn">Get Started</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="sigma_pricing bg-primary-1">
+              <div class="sigma_pricing-top">
+                <span class="sigma_pricing-icon bg-white">
+                  <i class="flaticon-open-book is_flaticon"></i>
+                </span>
+                <span class="sigma_pricing-title text-white">Popular Plan</span>
+                <span class="sigma_pricing-rate text-white">$80</span>
+                <p class="m-0 text-white"> Installation is one-time only</p>
+              </div>
+              <div class="sigma_general-list style-3">
+                <ul>
+                  <li>
+                    <i class="far fa-check text-white"></i>
+                    <span class="text-white">Everything in Free plan</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check text-white"></i>
+                    <span class="text-white">10 Autosave drafts/page</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check text-white"></i>
+                    <span class="text-white">Live chat24X7</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check text-white"></i>
+                    <span class="text-white">Limit 10 pages</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check text-white"></i>
+                    <span class="text-white">Support Customize</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="#" class="sigma_btn light">Get Started</a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="sigma_pricing white-bg">
+              <div class="sigma_pricing-top">
+                <span class="sigma_pricing-icon">
+                  <i class="flaticon-slate is_flaticon"></i>
+                </span>
+                <span class="sigma_pricing-title">Enterprise Plan</span>
+                <span class="sigma_pricing-rate">$150</span>
+                <p class="m-0">Installation is one-time only</p>
+              </div>
+              <div class="sigma_general-list style-3">
+                <ul>
+                  <li>
+                    <i class="far fa-check"></i>
+                    <span>Everything in Free plan</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check"></i>
+                    <span>10 Autosave drafts/page</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check"></i>
+                    <span>Live chat24X7</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check"></i>
+                    <span>Limit 10 pages</span>
+                  </li>
+                  <li>
+                    <i class="far fa-check"></i>
+                    <span>Support Customize</span>
+                  </li>
+                </ul>
+              </div>
+              <a href="#" class="sigma_btn">Get Started</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--pricing End-->
+  </div>
+  <!--cta Start-->
+  <div id="section-cta">
+    <div class="section pb-0 bg-cover bg-center dark-overlay bg-parallax"
+      style="background-image: url(assets/img/services/1920x600.jpg)">
+      <div class="sigma_cta with-video">
+        <div class="container">
+          <div class="row mb-4 justify-content-center">
+            <div class="col-lg-10">
+              <div class="row">
+                <div class="col-lg-4 col-md-6">
+                  <div class="sigma_counter style-7 text-start">
+                    <span class="text-white">
+
+                      <b class="counter" data-from="0" data-to="5">5</b>
+
+                      <span class="plus text-white">+</span>
+                    </span>
+                    <p class="text-white">Years of experience</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="sigma_counter style-7 text-start">
+                    <span class="text-white">
+
+                      <b class="counter" data-from="0" data-to="80">80</b>
+
+                      <span class="plus text-white">+</span>
+                    </span>
+                    <p class="text-white">Awesome Team Members</p>
+                  </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <div class="sigma_counter style-7 text-start">
+                    <span class="text-white">
+
+                      <b class="counter" data-from="0" data-to="20">15</b>
+
+                      <span class="plus text-white">+</span>
+                    </span>
+                    <p class="text-white">Year Service Hosting</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8">
+              <div class="sigma_video bg-cover bg-center"
+                style="background-image: url(assets/img/services/770x351.jpg)">
+                <a href="#" class="sigma_video-btn popup-video">
+                  <i class="far fa-play"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="sigma_cta style-6 mt-5 mt-lg-0">
+                <h3 class="title text-white">You can get a free consultation</h3>
+                <p> Our agile process is ability to adapt and respond to change.</p>
+                <a href="#" class="sigma_btn light">
+
+                  Get a Quote
+
+                  <i class="fal fa-arrow-right"></i>
+
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--to-top Start-->
+      <div id="section-to-top">
+        <div class="sigma_top style-3">
+          <i class="far fa-arrow-up"></i>
+        </div>
+        <!--to-top End-->
+      </div>
+      <!--footer Start-->
+      <div id="section-footer">
+        <footer class="sigma_footer sigma_footer-sec">
+          <div class="container">
+            <div class="sigma_footer-middle text-center">
+              <div class="sigma_footer-logo">
+                <img src="/static/img/logo.png" alt="logo">
+              </div>
+              <ul class="sigma_footer-links">
+                <li>
+                  <a href="#">Home</a>
+                </li>
+                <li>
+                  <a href="#">About</a>
+                </li>
+                <li>
+                  <a href="#">Blog</a>
+                </li>
+                <li>
+                  <a href="#">Contact</a>
+                </li>
+              </ul>
+              <ul class="sigma_social-icons">
+                <li>
+                  <a onclick="window.location.href='products'"><i class="fab fa-facebook-f"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fab fa-instagram"></i></a>
+                </li>
+              </ul>
+              <div class="sigma_footer-copyright">
+                <p class="mb-0">Copyright © 2023. All rights reserved to clix
+                </p>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!--footer End-->
+      </div>
+      {% endblock %}
+
+
+      <!-- Javascript -->
+
+</body>
+
+
+</html>
