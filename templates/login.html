@@ -23,7 +23,7 @@
       box-sizing: border-box;
   }
   body{
-      background-color: #5541ec;
+      background-color: #614fed;
   }
   .background{
       width: 430px;
@@ -146,19 +146,23 @@
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
-    <form>
+    <form action="/login" method="post">
         <h3>Login Here</h3>
+        <div>{% if error2 %}
+            <p style="color: red;">{{ error2 }}</p>
+            {% endif %}</div>
     
         <label for="username">Username</label>
-        <input type="text" placeholder="Email or Phone" id="username">
+        <input type="text" placeholder="Email or Phone" id="username" name="email">
     
         <label for="password">Password</label>
-        <input type="password" placeholder="Password" id="password">
+        <input type="password" placeholder="Password" id="password" name="password">
     
         <button type="submit">Log In</button>
         <div class="social">
           <div class="go"><i class="fab fa-google"></i>  Google</div>
           <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+          
         </div>
         <a href="{{ url_for('register') }}">Don't have an account Signup?</a>
       </form>

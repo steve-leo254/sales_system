@@ -1,5 +1,6 @@
 import psycopg2
 
+
 try:
     conn = psycopg2.connect("dbname= duka user=postgres password=leo.steve")
     cur = conn.cursor()
@@ -55,3 +56,18 @@ def add_users(v):
     cur.execute(q)
     conn.commit()
     return q
+
+
+def add_user(v):
+    vs = str(v)
+    q = "insert into users(full_name,email,password,comfirm_password,time)"\
+         "values" + vs
+    cur.execute(q)
+    conn.commit()
+    return q
+
+def loginn(email,password):
+    q = "SELECT email, password FROM users;"
+    cur.execute(q)
+    results = cur.fetchall()
+    return results 
