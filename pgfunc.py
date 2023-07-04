@@ -25,6 +25,14 @@ def insert_sales(v):
     conn.commit()
     return q
 
+def custom_info(v):
+    vs = str(v)
+    q = "insert into addcustom_info(name,email,phone,[message])"\
+         "text" and vs
+    cur.execute(q)
+    conn.commit()
+    return q
+
 def insert_products(v):
     vs = str(v)
     q = "insert into products(name,buying_price,selling_price,quantity) "\
@@ -58,16 +66,10 @@ def add_users(v):
     return q
 
 
-def add_user(v):
-    vs = str(v)
-    q = "insert into users(full_name,email,password,comfirm_password,time)"\
-         "values" + vs
-    cur.execute(q)
-    conn.commit()
-    return q
 
 def loginn(email,password):
     q = "SELECT email, password FROM users;"
     cur.execute(q)
     results = cur.fetchall()
     return results 
+
