@@ -65,7 +65,7 @@
       
         </form>
       </div>
-      <div class="modal-footer">
+        <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Save changes</button>
       </div>
@@ -81,6 +81,7 @@
           <th scope="col">Price</th>
           <th scope="col">Quantity</th>
           <th scope="col">Total</th>
+          <th scope="col">Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -91,6 +92,7 @@
           <td>{{ prod[2] }}</td>
           <td>{{ prod[3] }}</td>
           <td>{{ prod[4] }}</td>
+          
         </tr>
         {% endfor %}
       </tbody>

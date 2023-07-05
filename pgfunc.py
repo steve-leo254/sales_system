@@ -37,7 +37,6 @@ def add_custom_info(contact):
     
 
 
-
 def insert_products(v):
     vs = str(v)
     q = "insert into products(name,buying_price,selling_price,quantity) "\
@@ -48,13 +47,12 @@ def insert_products(v):
     
 
 
-
-
 def sales_per_day():
     q = "select * from sale_per_month"
     cur.execute(q)
     results = cur.fetchall()
     return results
+
 
 def sales_per_product():
     q = "select * from sale_per_product"
@@ -62,16 +60,17 @@ def sales_per_product():
     results = cur.fetchall()
     return results
 
-def add_users(full_name, email, password, confirm_password, time):
+
+def add_users(full_name, email, password, confirm_password,time):
     if not all([full_name, email, password, confirm_password]):
         return "Error: Please provide all required information."
 
     if password != confirm_password:
         return "Error: Passwords do not match."
 
-    q = "INSERT INTO users (full_name, email, password, confirm_password, time) " \
-        "VALUES (%s, %s, %s, %s, %s);"
-    cur.execute(q, (full_name, email, password, confirm_password, time))
+    q = "INSERT INTO users  (full_name, email, password, confirm_password,time) " \
+        "VALUES (%s, %s, %s, %s,%s);"
+    cur.execute(q, (full_name, email, password, confirm_password,time))
     conn.commit()
     return "User added successfully."
 

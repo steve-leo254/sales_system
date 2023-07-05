@@ -16,11 +16,51 @@ app = Flask(__name__)
 def landing():
     return render_template("landing.html")
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error2 = None
+    if request.method == "POST":
+        email = request.form["email"]
+        password = request.form["password"]
+        user = loginn(email,password)
+        if user:
+          for i in user:
+                db_email = i[0]
+                db_password = i[1]
+          if db_password== password and db_email== email:
+             return redirect("/index")
+          else:
+             error2 = "Invalid password or email. Please try again Pal."
+            #  return render_template("login.html", error2)
+        else:
+            error2 = "Account not found. Please register first."
+    return render_template("login.html", error2=error2) 
+  
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+
+@app.route('/signup', methods=["POST", "GET"])
+def addusers():
+   error1 = None
+   if request.method=="POST":
+      full_name = request.form["full_name"]
+      email = request.form["email"]
+      password = request.form["password"]
+      confirm_password = request.form["confirm_password"]
+      if password != confirm_password:
+         error1 = "Passwords do not match! Please enter again."
+      else:
+         add_users(full_name, email, password, confirm_password,'now()')
+
+   return render_template("register.html", error1=error1)
+
 
 @app.route('/index')
 def home():
     return render_template("index.html")
-
 
 
 @app.route('/products')
@@ -89,47 +129,11 @@ def dashboard():
     return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data)
 
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    error2 = None
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-        user = loginn(email,password)
-        if user:
-          for i in user:
-                db_email = i[0]
-                db_password = i[1]
-          if db_password== password and db_email== email:
-             return redirect("/index")
-          else:
-             error2 = "Invalid password or email. Please try again Pal."
-            #  return render_template("login.html", error2)
-        else:
-            error2 = "Account not found. Please register first."
-    return render_template("login.html", error2=error2)   
-
-@app.route('/register')
-def register():
-    return render_template('register.html')
 
 
-
-@app.route('/signup', methods=["POST", "GET"])
-def addusers():
-   error1 = None
-   if request.method=="POST":
-      full_name= request.form["full_name"]
-      email=request.form["email"]
-      password=request.form["password"]
-      confirm_password=request.form["confirm_password"]
-      if password != confirm_password:
-         error1 = "password do not match! please enter again."
-
-   users=(full_name,email,password,confirm_password,'now()')
-   add_users(users)
-   return render_template("register.html", error1=error1)
-
+@app.route('/stocks')
+def stocks():
+    return render_template("stocks.html")
 
 
 @app.route('/contact')
