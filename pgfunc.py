@@ -25,13 +25,18 @@ def insert_sales(v):
     conn.commit()
     return q
 
-def custom_info(v):
-    vs = str(v)
-    q = "insert into addcustom_info(name,email,phone,[message])"\
-         "text" and vs
-    cur.execute(q)
+
+
+def add_custom_info(contact):
+    vs = str(contact)
+    q = "insert into custom_info (name, email, phone, message) VALUES (%s, %s, %s, %s);"
+    "values" + vs
+    cur.execute(q , contact)
     conn.commit()
-    return q
+    return "Request submitted successfully."
+    
+
+
 
 def insert_products(v):
     vs = str(v)
@@ -57,13 +62,18 @@ def sales_per_product():
     results = cur.fetchall()
     return results
 
-def add_users(v):
-    vs = str(v)
-    q = "insert into users(full_name,email, password, confirm_password, time) "\
-        "values" + vs
-    cur.execute(q)
+def add_users(full_name, email, password, confirm_password, time):
+    if not all([full_name, email, password, confirm_password]):
+        return "Error: Please provide all required information."
+
+    if password != confirm_password:
+        return "Error: Passwords do not match."
+
+    q = "INSERT INTO users (full_name, email, password, confirm_password, time) " \
+        "VALUES (%s, %s, %s, %s, %s);"
+    cur.execute(q, (full_name, email, password, confirm_password, time))
     conn.commit()
-    return q
+    return "User added successfully."
 
 
 

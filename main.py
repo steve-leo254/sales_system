@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
 from pgfunc import fetch_data, insert_products
-from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users,loginn,custom_info
+from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users,loginn,add_custom_info
 import pygal
 
 
@@ -21,20 +21,6 @@ def landing():
 def home():
     return render_template("index.html")
 
-@app.route('/contact')
-def contact():
-    return render_template("contact.html")
-
-
-@app.route('/addcontact', methods=["POST", "GET"])
-def addcontact():
-    name = request.form["name"]
-    email = request.form["email"]
-    phone = request.form["phone"]
-    message = request.form["message"]
-    contact = (name, email, phone, ["message"])  # Include message in the contact tuple
-    custom_info(contact)  # Pass the correct variable
-    return render_template("contact.html")
 
 
 @app.route('/products')
@@ -146,6 +132,20 @@ def addusers():
 
 
 
+@app.route('/contact')
+def contact():
+    return render_template("contact.html")
+
+
+@app.route('/addcontact', methods=["POST", "GET"])
+def add_contact(): 
+    name = request.form["name"]
+    email = request.form["email"]
+    phone = request.form["phone"]
+    message = request.form["message"]
+    contact = (name, email, phone, message)
+    add_custom_info(contact)
+    return render_template("contact.html")
 
 
 
