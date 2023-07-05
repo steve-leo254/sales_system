@@ -32,7 +32,7 @@ def addcontact():
     email = request.form["email"]
     phone = request.form["phone"]
     message = request.form["message"]
-    contact = (name, email, phone, [message])  # Include message in the contact tuple
+    contact = (name, email, phone, ["message"])  # Include message in the contact tuple
     custom_info(contact)  # Pass the correct variable
     return render_template("contact.html")
 

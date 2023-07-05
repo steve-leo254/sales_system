@@ -68,8 +68,8 @@ def add_users(v):
 
 
 def loginn(email,password):
-    q = "SELECT email, password FROM users;"
-    cur.execute(q)
+    q = "SELECT email, password FROM users WHERE email = %s AND password = %s;"
+    cur.execute(q, (email, password))
     results = cur.fetchall()
     return results 
 
