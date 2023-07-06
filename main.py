@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
 from pgfunc import fetch_data, insert_products
-from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users,loginn,add_custom_info
+from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
 import pygal
 
 
@@ -79,7 +79,26 @@ def addproducts():
         products = (name, buying_price, selling_price,quantity)
         insert_products(products)
         return redirect("/products")
-    
+
+
+@app.route('/editproduct', methods=["POST", "GET"])
+def edit_products():
+   if request.method=="POST":
+      id = request.form['id']
+      name = request.form["name"]
+      buying_price= request.form["buying_price"]
+      selling_price=request.form["selling_price"]
+      quantity=request.form["quantity"]
+      print(name)
+      print(buying_price)
+      print(selling_price)
+      print(quantity)
+      products=(id,name,buying_price,selling_price,quantity)
+      update_products(products)
+      return redirect("/products")
+   
+
+   
 
 @app.route('/sales')
 def sales():
@@ -133,7 +152,9 @@ def dashboard():
 
 @app.route('/stocks')
 def stocks():
-    return render_template("stocks.html")
+    stock = fetch_data("stock")
+    prod= fetch_data("products")
+    return render_template('stocks.html', stock=stock, prod=prod)
 
 
 @app.route('/contact')

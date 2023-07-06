@@ -1,89 +1,103 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>/stocks</title>
-
-    <link href="/static/css/style.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/static/img/favicon.png" type="image/x-icon">
 </head>
+{% extends 'layout.html' %}
 
 <body>
-    {% extends "layout.html" %}
     {% block content %}
-    <div class="container">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <!-- Add the "Edit" column header -->
-                        <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for product in products %}
-                    <tr>
-                        <td>{{ product.id }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.price }}</td>
-                        <!-- Add the "Edit" column cell with a button triggering the modal -->
-                        <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#exampleModal{{ product.id }}">
-                                Edit
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <!-- Modal for editing each product -->
-            {% for product in products %}
-            <div class="modal fade" id="exampleModal{{ product.id }}" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel{{ product.id }}" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel{{ product.id }}">Edit Product</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Edit form with pre-filled input values -->
-                            <form action="/update_product" method="POST">
-                                <input type="hidden" name="id" value="{{ product.id }}">
-                                <div class="form-group">
-                                    <label for="name{{ product.id }}">Name</label>
-                                    <input type="text" class="form-control" id="name{{ product.id }}" name="name"
-                                        value="{{ product.name }}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="price{{ product.id }}">Price</label>
-                                    <input type="number" class="form-control" id="price{{ product.id }}" name="price"
-                                        value="{{ product.price }}">
-                                </div>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
 
+
+    <div class="row">
+        <div class="col-6">
 
 
 
         </div>
 
+
+        <div class="col-6">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                + Add Stock
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add your stock</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <form action="/addstock" method="POST">
+
+                                <!-- <label for="fname">product_id:</label><br> -->
+                                <select name="pid" id="product">
+                                    <option value="">Select a product</option>
+                                    {% for prod in prods %}
+                                    <option value="{{ prod[0] }}">{{ prod[1] }}</option>
+                                    {% endfor %}
+                                </select><br><br>
+                                <label for="lname">quantity:</label>
+                                <input type="text" id="lname" name="quantity"><br><br>
+
+
+
+                                <button type="submit" class="btn btn-primary">Submit</button><br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+
+    <div>
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+
+
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                            <th>time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for st in stock %}
+                        <tr>
+                            <td>{{ st[0] }}</td>
+                            <td>{{ st[1] }}</td>
+                            <td>{{ st[2] }}</td>
+                            <td>{{ st[3] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-2"></div>
+        </div>
+
+    </div>
+
+
+
     {% endblock %}
+
+
 </body>
 
 </html>
