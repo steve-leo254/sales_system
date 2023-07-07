@@ -93,8 +93,8 @@ def edit_products():
       print(buying_price)
       print(selling_price)
       print(quantity)
-      products=(id,name,buying_price,selling_price,quantity)
-      update_products(products)
+      v=(id,name,buying_price,selling_price,quantity)
+      update_products(v)
       return redirect("/products")
    
 

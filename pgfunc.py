@@ -25,18 +25,17 @@ def insert_sales(v):
     conn.commit()
     return q
 
+
 def update_products(vs):
+    print(vs)
     id = vs[0]
     name = vs[1]
     buying_price = vs[2]
     selling_price = vs[3]
-    quantity = vs[4]
-    
-    q = "update products SET name = %s, buying_price = %s, selling_price = %s, quantity = %s WHERE id = %s"
-    
-    cur.execute(q, (id, name, buying_price, selling_price, quantity))
+    quantity = vs[4] 
+    q = "UPDATE products SET name = %s,buying_price = %s,selling_price = %s,quantity = %s WHERE id = %s"
+    cur.execute(q, (name,buying_price,selling_price,quantity,id))
     conn.commit()
-    
     return q
 
 
