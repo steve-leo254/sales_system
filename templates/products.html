@@ -78,9 +78,8 @@
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total</th>
+            <th scope="col">Buying price</th>
+            <th scope="col">Selling price</th>
             <th scope="col">Edit</th>
           </tr>
         </thead>
@@ -91,12 +90,11 @@
             <td>{{ prod[1] }}</td>
             <td>{{ prod[2] }}</td>
             <td>{{ prod[3] }}</td>
-            <td>{{ prod[4] }}</td>
             <td>
               <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                   data-bs-target="#editModal{{ prod[0] }}">
-                  Edit product
+                  Edit 
 
                 </button>
 
@@ -106,7 +104,7 @@
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editModalLabel">edit the product</h1>
+                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Your Product</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">

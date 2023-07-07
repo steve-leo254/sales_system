@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
-from pgfunc import fetch_data, insert_products
-from pgfunc import fetch_data, insert_sales, insert_products,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
+from pgfunc import fetch_data, insert_products,insert_stock
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
 import pygal
 
 
@@ -150,11 +150,21 @@ def dashboard():
 
 
 
-@app.route('/stocks')
-def stocks():
+@app.route('/stock')
+def stock():
     stock = fetch_data("stock")
-    prod= fetch_data("products")
-    return render_template('stocks.html', stock=stock, prod=prod)
+    prods= fetch_data("products")
+    return render_template('stock.html', stock=stock, prods=prods)
+
+
+@app.route('/addstock', methods=["POST"])
+def addstock():
+   if request.method=="POST":
+      pid= request.form["pid"]
+      quantity=request.form["quantity"]
+      stock=(pid,quantity,'now()')
+      insert_stock(stock)
+      return redirect("/stock")
 
 
 @app.route('/contact')

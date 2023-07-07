@@ -73,6 +73,15 @@ def sales_per_product():
     return results
 
 
+def insert_stock(v):
+    vs = str(v)
+    q = "insert into stock(pid,quantity,time) "\
+        "values" + vs
+    cur.execute(q)
+    conn.commit()
+    return q
+
+
 def add_users(full_name, email, password, confirm_password,time):
     if not all([full_name, email, password, confirm_password]):
         return "Error: Please provide all required information."
