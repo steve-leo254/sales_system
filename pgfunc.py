@@ -26,6 +26,7 @@ def insert_sales(v):
     return q
 
 
+
 def update_products(vs):
     print(vs)
     id = vs[0]
@@ -71,6 +72,14 @@ def sales_per_product():
     cur.execute(q)
     results = cur.fetchall()
     return results
+
+
+def remaining_stock():
+    q = " SELECT * from remaining_stock"
+    cur.execute(q)
+    results = cur.fetchall()
+    return results
+
 
 
 def insert_stock(v):

@@ -80,16 +80,19 @@
             <th scope="col">Name</th>
             <th scope="col">Buying price</th>
             <th scope="col">Selling price</th>
+            <th scope="col">Remaing_Stock</th>
             <th scope="col">Edit</th>
           </tr>
         </thead>
         <tbody>
           {% for prod in prods %}
+          
           <tr>
             <th scope="row">{{ prod[0] }}</th>
             <td>{{ prod[1] }}</td>
             <td>{{ prod[2] }}</td>
             <td>{{ prod[3] }}</td>
+            <td>{{ remaining_stock}}</td>
             <td>
               <div>
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -154,6 +157,7 @@
 
             </td>
           </tr>
+          
           {% endfor %}
         </tbody>
       </table>

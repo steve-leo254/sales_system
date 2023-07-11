@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect,url_for
-from pgfunc import fetch_data, insert_products,insert_stock
+from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock
 from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
 import pygal
 
@@ -145,9 +145,28 @@ def dashboard():
     line_chart.add('Sales', sales)
     line_chart_data = line_chart.render_data_uri()
 
-    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data)
 
+    # remaianing_stocks
+    bar_chart1 = pygal.Bar()
+    bar_chart1.title = 'remaining stock'
+    remain_stock = remaining_stock()
+    
+    name1 = []
+    stock = []
+    for i in remain_stock:
+       name1.append(i[1])
+       stock.append(i[2])
+    bar_chart1.x_labels = name1
+    bar_chart1.add('stock', stock)
+    bar_chart1=bar_chart1.render_data_uri()
+    # print(remaining_stock)
 
+    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data, bar_chart1=bar_chart1)
+
+@app.context_processor
+def inject_remaining_stock():
+    stock = remaining_stock()
+    return {'remaining_stock': stock }
 
 
 @app.route('/stock')
@@ -181,6 +200,7 @@ def add_contact():
     contact = (name, email, phone, message)
     add_custom_info(contact)
     return render_template("contact.html")
+
 
 
 
