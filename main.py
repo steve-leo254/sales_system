@@ -163,10 +163,16 @@ def dashboard():
 
     return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data, bar_chart1=bar_chart1)
 
+
 @app.context_processor
-def inject_remaining_stock():
-    stock = remaining_stock()
-    return {'remaining_stock': stock }
+def inject_processor():
+    def get_remaining(quantity, remaining_stock):
+        return "{}{}".format(quantity, remaining_stock)
+    
+    return dict(get_remaining=get_remaining, quantity='quantity')
+
+
+
 
 
 @app.route('/stock')
