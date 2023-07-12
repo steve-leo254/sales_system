@@ -112,3 +112,8 @@ def loginn(email,password):
     results = cur.fetchall()
     return results 
 
+
+def get_remaining_stock(cur):
+    cur.execute("SELECT * FROM get_remaining_stock;")
+    results = cur.fetchall()
+    return [remaining_stock for _, _, remaining_stock in results]

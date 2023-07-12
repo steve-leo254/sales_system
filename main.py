@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
 from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products, get_remaining_stock
 import pygal
 
 
@@ -165,13 +165,12 @@ def dashboard():
 
 
 @app.context_processor
-def inject_processor():
-    def get_remaining(quantity, remaining_stock):
-        return "{}{}".format(quantity, remaining_stock)
+def inject_remaining_stock():
+    def get_remaining_stocks():
+        stock_quantities = duka.remaining_stock()  # Retrieve remaining stock quantities from the database
+        # return [remaining_stock for _, _, remaining_stock in stock_quantities]   Return a list of remaining stock quantities
     
-    return dict(get_remaining=get_remaining, quantity='quantity')
-
-
+    return {"get_remaining_stocks": get_remaining_stocks}
 
 
 
