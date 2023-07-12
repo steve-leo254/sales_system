@@ -33,9 +33,8 @@ def update_products(vs):
     name = vs[1]
     buying_price = vs[2]
     selling_price = vs[3]
-    quantity = vs[4] 
-    q = "UPDATE products SET name = %s,buying_price = %s,selling_price = %s,quantity = %s WHERE id = %s"
-    cur.execute(q, (name,buying_price,selling_price,quantity,id))
+    q = "UPDATE products SET name = %s,buying_price = %s,selling_price = %s WHERE id = %s"
+    cur.execute(q, (name,buying_price,selling_price,id))
     conn.commit()
     return q
 
@@ -113,7 +112,9 @@ def loginn(email,password):
     return results 
 
 
-def get_remaining_stock(cur):
-    cur.execute("SELECT * FROM get_remaining_stock;")
-    results = cur.fetchall()
-    return [remaining_stock for _, _, remaining_stock in results]
+def stockremaining():
+   rem="SELECT p.id,p.name,sd.quantity - COALESCE(sum(sa.quantity), 0::bigint) AS remaining_stock FROM products p JOIN stock sd ON p.id = sd.pid LEFT JOIN sales sa ON p.id = sa.pid GROUP BY p.id, sd.quantity; "
+   cur.execute(rem)
+   rm=cur.fetchall()
+   return(rm)
+

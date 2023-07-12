@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
 from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products, get_remaining_stock
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products,stockremaining
 import pygal
 
 
@@ -75,8 +75,7 @@ def addproducts():
         name = request.form["name"]
         buying_price = request.form["buying_price"]
         selling_price = request.form["selling_price"]
-        quantity = request.form["quantity"]
-        products = (name, buying_price, selling_price,quantity)
+        products = (name, buying_price, selling_price)
         insert_products(products)
         return redirect("/products")
 
@@ -88,12 +87,10 @@ def edit_products():
       name = request.form["name"]
       buying_price= request.form["buying_price"]
       selling_price=request.form["selling_price"]
-      quantity=request.form["quantity"]
       print(name)
       print(buying_price)
       print(selling_price)
-      print(quantity)
-      v=(id,name,buying_price,selling_price,quantity)
+      v=(id,name,buying_price,selling_price)
       update_products(v)
       return redirect("/products")
    
@@ -103,16 +100,15 @@ def edit_products():
 @app.route('/sales')
 def sales():
     sales = fetch_data("sales")
-    return render_template('sales.html', sales=sales)
+    prods = fetch_data("products")
+    return render_template('sales.html', sales=sales, prods=prods)
 
 
 @app.route('/addsales', methods=["POST", "GET"])
 def addsale():
     if request.method == "POST":
-        
         pid = request.form["pid"]
         quantity = request.form["quantity"]
-        
         sales = ( pid, quantity,'now()')
         insert_sales(sales)
         return redirect("/sales")
@@ -165,12 +161,9 @@ def dashboard():
 
 
 @app.context_processor
-def inject_remaining_stock():
-    def get_remaining_stocks():
-        stock_quantities = duka.remaining_stock()  # Retrieve remaining stock quantities from the database
-        # return [remaining_stock for _, _, remaining_stock in stock_quantities]   Return a list of remaining stock quantities
-    
-    return {"get_remaining_stocks": get_remaining_stocks}
+def my_stock_remaining():
+    remaining_stock = stockremaining()  
+    return dict(remaining_stock=remaining_stock)
 
 
 

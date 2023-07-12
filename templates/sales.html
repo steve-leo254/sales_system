@@ -41,26 +41,18 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form action="/addsales" method="post">
-                            <div class="mb-3">
-                                <label for="exampleInputname" class="form-label">ID</label>
-                                <input name="id" type="text" class="form-control" aria-describedby="Name">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputname" class="form-label">Pid</label>
-                                <input name="pid" type="text" class="form-control" id="buying_price">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputquantiy" class="form-label">Quantity</label>
-                                <input name="quantity" type="text" class="form-control" id="selling">
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputTime" class="form-label">Time</label>
-                                <input name="time" type="text" class="form-control" id="selling">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                        <form action="/addsales" method="POST">
 
-
+                            <!-- <label for="fname">product_id:</label><br> -->
+                            <select name="pid" id="product">
+                                <option value="">Select a product</option>
+                                {% for prod in prods %}
+                                <option value="{{ prod[0] }}">{{ prod[1] }}</option>
+                                {% endfor %}
+                            </select><br><br>
+                            <label for="lname">quantity:</label>
+                            <input type="text" id="lname" name="quantity"><br><br>
+                            <button type="submit" class="btn btn-primary">Submit</button><br>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -77,7 +69,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Product ID</th>
+                        <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Time</th>
                     </tr>
@@ -86,7 +78,14 @@
                     {% for sale in sales %}
                     <tr>
                         <td>{{ sale[0] }}</td>
-                        <td>{{ sale[1] }}</td>
+                        <td name = "pid">
+                            {% for prod in prods %}
+                                {% if prod[0]==sale[1]%}
+                                    {{prod[1]}}
+                                {% endif %}
+                            {% endfor %}
+
+                        </td>
                         <td>{{ sale[2] }}</td>
                         <td>{{ sale[3] }}</td>
                     </tr>

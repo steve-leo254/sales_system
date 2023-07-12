@@ -85,7 +85,14 @@
                         {% for st in stock %}
                         <tr>
                             <td>{{ st[0] }}</td>
-                            <td>{{ st[1] }}</td>
+                            <td name = "pid">
+                                {% for prod in prods %}
+                                    {% if prod[0]==st[1]%}
+                                        {{prod[1]}}
+                                    {% endif %}
+                                {% endfor %}
+    
+                            </td>
                             <td>{{ st[2] }}</td>
                             <td>{{ st[3] }}</td>
                         </tr>
