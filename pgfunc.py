@@ -112,13 +112,13 @@ def loginn(email,password):
     return results 
 
 
-def stockremaining():
-    q = """ SELECT sd.quantity - COALESCE(sum(sa.quantity), 0::bigint) AS remaining_stock
-       FROM products p
-       JOIN stock sd ON p.id = sd.pid
-       LEFT JOIN sales sa ON p.id = sa.pid
-       WHERE p.id = sd.pid
-       GROUP BY p.id, sd.quantity"""
-    cur.execute(q)
+def stockremaining(product_id=None):
+    q = """  SELECT st.quantity - COALESCE(sum(sa.quantity), 0::bigint) AS remaining_stock
+     FROM products p
+     JOIN stock st ON p.id = st.pid
+     LEFT JOIN sales sa ON p.id = sa.pid
+     WHERE p.id = %s
+    GROUP BY st.quantity;"""
+    cur.execute(q,(product_id,))
     results = cur.fetchall()
     return results

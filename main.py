@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for
-from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products,stockremaining
+from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock,stockremaining
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
 import pygal
 
 
@@ -161,10 +161,11 @@ def dashboard():
 
 
 @app.context_processor
-def my_stock_remaining():
-      # Replace with your desired default value
-    remaining_stock = stockremaining()
-    return dict(remaining_stock=remaining_stock)
+def inject_stockremaining():
+    def remaining_stock(product_id=None):
+        return stockremaining(product_id)
+    
+    return {'remaining_stock':remaining_stock}
 
 
 
