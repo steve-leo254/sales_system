@@ -162,8 +162,10 @@ def dashboard():
 
 @app.context_processor
 def my_stock_remaining():
-    remaining_stock = stockremaining()  
+      # Replace with your desired default value
+    remaining_stock = stockremaining()
     return dict(remaining_stock=remaining_stock)
+
 
 
 
