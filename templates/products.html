@@ -89,7 +89,7 @@
             <td>{{ prod[1] }}</td>
             <td>{{ prod[2] }}</td>
             <td>{{ prod[3] }}</td>
-            {% if remaining_stock(prod.0) | int < 20 %} <td style="background-color: red;">{{ remaining_stock(prod.0) }}
+            {% if remaining_stock(prod.0) | int < 20 %} <td style="background-color:red;">{{ remaining_stock(prod.0) }}
               </td>
               {% elif remaining_stock(prod.0) | int < 50 %} <td style="background-color: yellow;">{{
                 remaining_stock(prod.0) }}</td>
