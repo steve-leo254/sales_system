@@ -121,4 +121,7 @@ def stockremaining(product_id=None):
     GROUP BY st.quantity;"""
     cur.execute(q,(product_id,))
     results = cur.fetchall()
-    return results
+    if results:
+        return results[0]
+    else:
+        return None

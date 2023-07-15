@@ -163,8 +163,9 @@ def dashboard():
 @app.context_processor
 def inject_stockremaining():
     def remaining_stock(product_id=None):
-        return stockremaining(product_id)
-    
+     stock = stockremaining(product_id)
+     return stock[0] if stock is not None else int('0')
+
     return {'remaining_stock':remaining_stock}
 
 

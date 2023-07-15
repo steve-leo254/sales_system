@@ -56,7 +56,7 @@
                 <label for="exampleInputPassword1" class="form-label">selling_price</label>
                 <input name="selling_price" type="text" class="form-control" id="selling">
               </div>
-              
+
               <button type="submit" class="btn btn-primary">Submit</button>
 
 
@@ -83,73 +83,83 @@
         </thead>
         <tbody>
           {% for prod in prods %}
-          
+
           <tr>
             <th scope="row">{{ prod[0] }}</th>
             <td>{{ prod[1] }}</td>
             <td>{{ prod[2] }}</td>
             <td>{{ prod[3] }}</td>
-            <td>{{ remaining_stock(prod.0)  }}</td>
-            <td>
-              <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                  data-bs-target="#editModal{{ prod[0] }}">
-                  Edit 
+            {% if remaining_stock(prod.0) | int < 20 %} <td style="background-color: red;">{{ remaining_stock(prod.0) }}
+              </td>
+              {% elif remaining_stock(prod.0) | int < 50 %} <td style="background-color: yellow;">{{
+                remaining_stock(prod.0) }}</td>
+                {% elif remaining_stock(prod.0) | int > 50 %}
+                <td style="background-color: rgb(110, 221, 110);">{{ remaining_stock(prod.0) }}</td>
+                {% else %}
+                <td style="background-color: white;">{{ remaining_stock(prod.0) }}</td>
+                {% endif %}
 
-                </button>
+                <td>
+                  <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                      data-bs-target="#editModal{{ prod[0] }}">
+                      Edit
+
+                    </button>
 
 
-                <div class="modal fade" id="editModal{{ prod[0] }}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                  aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="editModalLabel">Edit Your Product</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form action="/editproduct" method="POST">
-
-                          <div class="mb-3">
-                            <label for="name" class="form-label"></label>
-                            <input type="hidden" class="form-control" id="id" name="id"
-                                value="{{ prod[0] }}">
+                    <div class="modal fade" id="editModal{{ prod[0] }}" tabindex="-1"
+                      aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="editModalLabel">Edit Your Product</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
+                          <div class="modal-body">
+                            <form action="/editproduct" method="POST">
 
-                          <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="name" name="name" value="{{ prod[1] }}">
+                              <div class="mb-3">
+                                <label for="name" class="form-label"></label>
+                                <input type="hidden" class="form-control" id="id" name="id" value="{{ prod[0] }}">
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" value="{{ prod[1] }}">
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="buying_price" class="form-label">Buying
+                                  Price</label>
+                                <input type="number" class="form-control" id="buying_price" name="buying_price"
+                                  value="{{ prod[2] }}">
+                              </div>
+
+                              <div class="mb-3">
+                                <label for="selling_price" class="form-label">Selling
+                                  Price</label>
+                                <input type="number" class="form-control" id="selling_price" name="selling_price"
+                                  value="{{ prod[3] }}">
+                              </div>
+
+
+
+                              <button type="submit" class="btn btn-primary">Update</button>
+                              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                                crossorigin="anonymous"></script>
+                            </form>
                           </div>
-
-                          <div class="mb-3">
-                            <label for="buying_price" class="form-label">Buying
-                              Price</label>
-                            <input type="number" class="form-control" id="buying_price" name="buying_price"
-                              value="{{ prod[2] }}">
-                          </div>
-
-                          <div class="mb-3">
-                            <label for="selling_price" class="form-label">Selling
-                              Price</label>
-                            <input type="number" class="form-control" id="selling_price" name="selling_price"
-                              value="{{ prod[3] }}">
-                          </div>
-
-                          
-
-                          <button type="submit" class="btn btn-primary">Update</button>
-                          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-                        </form>
+                        </div>
                       </div>
                     </div>
+
                   </div>
-                </div>
 
-              </div>
-
-            </td>
+                </td>
           </tr>
-          
+
           {% endfor %}
         </tbody>
       </table>
