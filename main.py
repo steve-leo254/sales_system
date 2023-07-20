@@ -4,7 +4,7 @@ from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_
 import pygal
 import psycopg2
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session,sessionmaker,session
+from sqlalchemy.orm import session
 
 from datetime import datetime, timedelta
 from functools import wraps
@@ -18,12 +18,36 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.secret_key="leo.steve"
 
+# def login_required(view_func):
+#     @wraps(view_func)
+#     def decorated_view(*args, **kwargs):
+#         if not session.get('logged_in') and not session.get('registered'):
+#             return redirect('/login') 
+#         return view_func(*args, **kwargs)
+#     return decorated_view
+
+
+
 
 @app.route('/')
 def landing():
     return render_template("landing.html")
 
 
+
+@app.route('/index')
+def home():
+    return render_template("index.html")
+
+
+@app.route("/register") 
+def register():
+   return render_template('register.html')
+
+
+# @app.route('/login')
+# def loginpage():
+#     return render_template('login.html')
 
 
 @app.route('/signup', methods=["POST", "GET"])
@@ -85,41 +109,13 @@ def login():
                 if db_email == email and check_password_hash(db_password_hash, password):
                     flash('Authentication has been successfully verified!', category='success')
                     session['logged_in'] = True
-                    return redirect("/")
+                    return redirect("/index")
             else:
                 flash('Incorrect email or password, please try again.', category='error')
                 return redirect("/login")
 
-    return render_template("index.html")
+    return render_template("login.html")
 
-
-
-
-@app.route('/signup', methods=["POST", "GET"])
-def addusers():
-   error1 = None
-   if request.method=="POST":
-      full_name = request.form["full_name"]
-      email = request.form["email"]
-      password = request.form["password"]
-      confirm_password = request.form["confirm_password"]
-      if password != confirm_password:
-         error1 = "Passwords do not match! Please enter again."
-      else:
-         add_users(full_name, email, password, confirm_password,'now()')
-
-   return render_template("register.html", error1=error1)
-
-
-@app.route("/register") 
-def register():
-   return render_template('register.html')
-
-
-
-@app.route('/login')
-def login_page():
-    return render_template('index.html')
 
 
 
@@ -131,17 +127,6 @@ def logout():
     return redirect('/login')
 
 
-
-
-@app.route('/index')
-def home():
-    if "email" in session:
-        email = session["email"]
-        # Do something with the user's email
-        return render_template("index.html", email=email)
-    else:
-        flash("You are not logged in!")
-        return render_template("index.html")
         
 
 

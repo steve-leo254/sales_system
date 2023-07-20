@@ -162,14 +162,8 @@
         </div>
         <form action="/login" method="post">
             <h3>Login Here</h3>
-            {% if session %}
-                <p>You are logged in already.</p>
-            {% else %}
-                <div>
-                    {% if error2 %}
-                        <p style="color: red;">{{ error2 }}</p>
-                    {% endif %}
-                </div>
+          
+                
         
                 <label for="username">Username</label>
                 <input type="text" placeholder="Email or Phone" id="username" name="email">
@@ -183,7 +177,7 @@
                     <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
                 </div>
                 <a href="{{ url_for('register') }}">Don't have an account? Sign up</a>
-            {% endif %}
+            
         </form>
         </body>
         </html>
