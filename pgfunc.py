@@ -79,15 +79,29 @@ def remaining_stock():
     results = cur.fetchall()
     return results
 
+def stockremaining(product_id=None):
+    q = """  SELECT st.quantity - COALESCE(sum(sa.quantity), 0::bigint) AS remaining_stock
+     FROM products p
+     JOIN stock st ON p.id = st.pid
+     LEFT JOIN sales sa ON p.id = sa.pid
+     WHERE p.id = %s
+    GROUP BY st.quantity;"""
+    cur.execute(q,(product_id,))
+    results = cur.fetchall()
+    if results:
+        return results[0]
+    else:
+        return None
 
 
-def insert_stock(v):
-    vs = str(v)
-    q = "insert into stock(pid,quantity,time) "\
-        "values" + vs
-    cur.execute(q)
-    conn.commit()
-    return q
+
+# def insert_stock(v):
+#     vs = str(v)
+#     q = "insert into stock(pid,quantity,time) "\
+#         "values" + vs
+#     cur.execute(q)
+#     conn.commit()
+#     return q
 
 
 def add_users(full_name, email, password, confirm_password,time):
@@ -105,6 +119,15 @@ def add_users(full_name, email, password, confirm_password,time):
 
 
 
+def user_already_exists(email):
+    email = str(email)
+    q = "SELECT COUNT(*) FROM users WHERE email = %s"\
+            "values" + q
+    cur.execute(q)
+    conn.commit()
+    return q[0] > 0
+
+
 def loginn(email,password):
     q = "SELECT email, password FROM users WHERE email = %s AND password = %s;"
     cur.execute(q, (email, password))
@@ -112,16 +135,3 @@ def loginn(email,password):
     return results 
 
 
-def stockremaining(product_id=None):
-    q = """  SELECT st.quantity - COALESCE(sum(sa.quantity), 0::bigint) AS remaining_stock
-     FROM products p
-     JOIN stock st ON p.id = st.pid
-     LEFT JOIN sales sa ON p.id = sa.pid
-     WHERE p.id = %s
-    GROUP BY st.quantity;"""
-    cur.execute(q,(product_id,))
-    results = cur.fetchall()
-    if results:
-        return results[0]
-    else:
-        return None

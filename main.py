@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, redirect,url_for
+from flask import Flask, render_template, request, redirect,url_for, flash
 from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock,stockremaining
 from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
 import pygal
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session,session,sessionmaker
 
 
 
@@ -16,11 +18,20 @@ app = Flask(__name__)
 def landing():
     return render_template("landing.html")
 
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    email = None
+    if "users" in session:
+        user = session["user"]
     error2 = None
     if request.method == "POST":
         email = request.form["email"]
+        session["email"]=email
+    else:
+        if "email" in session:
+            email = session["email"]
         password = request.form["password"]
         user = loginn(email,password)
         if user:
@@ -29,6 +40,9 @@ def login():
                 db_password = i[1]
           if db_password== password and db_email== email:
              return redirect("/index")
+        else:
+          flash("You are not logging in!")
+          return redirect(url_for(login))
           else:
              error2 = "Invalid password or email. Please try again Pal."
             #  return render_template("login.html", error2)
@@ -58,9 +72,25 @@ def addusers():
    return render_template("register.html", error1=error1)
 
 
+@app.route('/signout')
+def logout():
+    flash("You have been logged out !","info")
+    session.pop("user",None)
+    session.pop("email",None)
+    return redirect(url_for("login"))
+
+
+
 @app.route('/index')
 def home():
-    return render_template("index.html")
+    if "email" in session:
+        email = session["email"]
+        # Do something with the user's email
+        return render_template("index.html", email=email)
+    else:
+        flash("You are not logged in!")
+        return render_template("index.html")
+        
 
 
 @app.route('/products')
