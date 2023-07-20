@@ -1,17 +1,22 @@
 from flask import Flask, render_template, request, redirect,url_for, flash
-from pgfunc import fetch_data, insert_products,insert_stock ,remaining_stock,stockremaining
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,loginn,add_custom_info,update_products
+from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,add_custom_info,update_products,loginn
 import pygal
+import psycopg2
 from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session,session,sessionmaker
+from sqlalchemy.orm import scoped_session,sessionmaker,session
 
-
+from datetime import datetime, timedelta
+from functools import wraps
+conn = psycopg2.connect("dbname=duka user=postgres password=leo.steve")
+cur = conn.cursor()
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
 
 app = Flask(__name__)
-# app.secret_key="Mombasa.Kamundi"
+app.secret_key="leo.steve"
 
 
 @app.route('/')
@@ -20,40 +25,74 @@ def landing():
 
 
 
-@app.route('/login', methods=['GET', 'POST'])
+
+@app.route('/signup', methods=["POST", "GET"])
+def user_added():
+    if request.method == "POST":
+        full_name = request.form["full_name"]
+        email = request.form["email"]
+        password = request.form["password"]
+        confirm_password = request.form["confirm_password"]
+
+        # Validation checks before registration
+        if len(full_name) < 1:
+            flash('Full name must be greater than 1 character.', category='error')
+            return redirect("/register")
+        elif len(email) < 10:
+            flash('Email must be greater than 10 characters.', category='error')
+            return redirect("/register")
+        elif password != confirm_password:
+            flash('Passwords don\'t match. Please try again', category='error')
+            return redirect("/register")
+        elif len(password) < 6:
+            flash('Password must be at least 6 characters.', category='error')
+            return redirect("/register")
+
+        # Hash the password before storing it in the database
+        hashed_password = generate_password_hash(password)
+
+        # To check if the email already exists in the database
+        with conn.cursor() as cur:
+            cur.execute("SELECT COUNT(*) FROM users WHERE email = %s", (email,))
+            result = cur.fetchone()
+            if result[0] > 0:
+                flash('Email already exists! Please use another email!', category='error')
+                return redirect("/register")
+            else:
+                # Adding the new user to the database, after all checks are passed.
+                with conn.cursor() as cur:
+                    cur.execute(
+                        "INSERT INTO users (full_name, email, password, confirm_password, time) VALUES (%s, %s, %s, %s, now())",
+                        (full_name, email, hashed_password, confirm_password))
+                conn.commit()
+                flash('Account created successfully!', category='success')
+
+    session['registered'] = True
+    return render_template("index.html")
+
+
+@app.route('/login', methods=["POST", "GET"])
 def login():
-    email = None
-    if "users" in session:
-        user = session["user"]
-    error2 = None
     if request.method == "POST":
         email = request.form["email"]
-        session["email"]=email
-    else:
-        if "email" in session:
-            email = session["email"]
         password = request.form["password"]
-        user = loginn(email,password)
-        if user:
-          for i in user:
-                db_email = i[0]
-                db_password = i[1]
-          if db_password== password and db_email== email:
-             return redirect("/index")
-        else:
-          flash("You are not logging in!")
-          return redirect(url_for(login))
-          else:
-             error2 = "Invalid password or email. Please try again Pal."
-            #  return render_template("login.html", error2)
-        else:
-            error2 = "Account not found. Please register first."
-    return render_template("login.html", error2=error2) 
-  
+        users = loginn()
+        if users:
+            for user in users:
+                db_email = user[0]
+                db_password_hash = user[1]
 
-@app.route('/register')
-def register():
-    return render_template('register.html')
+                if db_email == email and check_password_hash(db_password_hash, password):
+                    flash('Authentication has been successfully verified!', category='success')
+                    session['logged_in'] = True
+                    return redirect("/")
+            else:
+                flash('Incorrect email or password, please try again.', category='error')
+                return redirect("/login")
+
+    return render_template("index.html")
+
+
 
 
 @app.route('/signup', methods=["POST", "GET"])
@@ -72,12 +111,25 @@ def addusers():
    return render_template("register.html", error1=error1)
 
 
-@app.route('/signout')
+@app.route("/register") 
+def register():
+   return render_template('register.html')
+
+
+
+@app.route('/login')
+def login_page():
+    return render_template('index.html')
+
+
+
+
+@app.route('/logout')
 def logout():
-    flash("You have been logged out !","info")
-    session.pop("user",None)
-    session.pop("email",None)
-    return redirect(url_for("login"))
+    session.clear()
+    flash('You have been logged out. Would you like to gain access? Kindly log in.', category='error')
+    return redirect('/login')
+
 
 
 
