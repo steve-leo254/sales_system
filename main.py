@@ -1,22 +1,27 @@
-from flask import Flask, render_template, request, redirect,url_for, flash
-from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining
+from flask import Flask, render_template, request, redirect,url_for, flash ,sessions
+from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
 from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,add_custom_info,update_products,loginn
 import pygal
 import psycopg2
 from sqlalchemy import create_engine
-from sqlalchemy.orm import session
+from sqlalchemy.orm import scoped_session,sessionmaker
+from werkzeug.security import generate_password_hash, check_password_hash
+# engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
+
+from passlib.hash import sha256_crypt
+# db = scoped_session(sessionmaker(bind=engine))
 
 from datetime import datetime, timedelta
 from functools import wraps
-conn = psycopg2.connect("dbname=duka user=postgres password=leo.steve")
-cur = conn.cursor()
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 
 
 app = Flask(__name__)
 app.secret_key="leo.steve"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///duka.db' 
+
+
 
 # def login_required(view_func):
 #     @wraps(view_func)
@@ -40,14 +45,15 @@ def home():
     return render_template("index.html")
 
 
+
 @app.route("/register") 
 def register():
    return render_template('register.html')
 
 
-# @app.route('/login')
-# def loginpage():
-#     return render_template('login.html')
+@app.route('/login')
+def loginpage():
+    return render_template('login.html')
 
 
 @app.route('/signup', methods=["POST", "GET"])
@@ -95,28 +101,30 @@ def user_added():
     return render_template("index.html")
 
 
+
 @app.route('/login', methods=["POST", "GET"])
 def login():
+    error = None
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        users = loginn()
+        users = loginn(email, password)
         if users:
             for user in users:
                 db_email = user[0]
-                db_password_hash = user[1]
-
-                if db_email == email and check_password_hash(db_password_hash, password):
-                    flash('Authentication has been successfully verified!', category='success')
-                    session['logged_in'] = True
+                db_password = user[1]
+                if db_email == email and db_password == password:
                     return redirect("/index")
-            else:
-                flash('Incorrect email or password, please try again.', category='error')
-                return redirect("/login")
+            error = "Invalid password or email. Please try again."
+        else:
+            error = "Account not found. Please register first."
+    return render_template("index.html", error=error)  
 
-    return render_template("login.html")
 
 
+# @app.errorhandler(404)
+# def page_not_found(error):
+#     return render_template('page_not_found.html'),404
 
 
 
@@ -125,7 +133,6 @@ def logout():
     session.clear()
     flash('You have been logged out. Would you like to gain access? Kindly log in.', category='error')
     return redirect('/login')
-
 
         
 
@@ -224,7 +231,34 @@ def dashboard():
     bar_chart1=bar_chart1.render_data_uri()
     # print(remaining_stock)
 
-    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data, bar_chart1=bar_chart1)
+     #Graph to show revenue per day
+    daily_revenue = revenue_per_day()
+    dates = []
+    sales_revenue_per_day = [] 
+    for i in daily_revenue:
+     dates.append(i[0])
+    sales_revenue_per_day.append(i[1]) 
+    line_chart = pygal.Line()
+    line_chart.title = "Sales Revenue per Day"
+    line_chart.x_labels = dates
+    line_chart.add("Revenue(KSh)", sales_revenue_per_day)
+    bar_chart = bar_chart.render_data_uri()
+    
+    #Graph to show revenue per month
+    monthly_revenue = revenue_per_month()
+    dates = []
+    sales_revenue_per_month = [] 
+    for i in monthly_revenue:
+     dates.append(i[0])
+    sales_revenue_per_month.append(i[1]) 
+    line_graph = pygal.Line()
+    line_graph.title = "Sales Revenue per Month"
+    line_graph.x_labels = dates
+    line_graph.add("Revenue(KSh)", sales_revenue_per_month)
+    line_chart = line_chart.render_data_uri()
+    
+
+    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data, bar_chart1=bar_chart1, bar_chart=bar_chart, line_chart=line_chart)
 
 
 @app.context_processor
