@@ -1,6 +1,7 @@
 import psycopg2
-
-
+import barcode
+from barcode import EAN13
+from barcode.writer import ImageWriter
 try:
     conn = psycopg2.connect("dbname= duka user=postgres password=leo.steve")
     cur = conn.cursor()
@@ -147,4 +148,10 @@ def loginn():
     results = cur.fetchall()
     return results 
 
+
+
+def generate_barcode(data):
+    number = "123456781237"
+    My_code=EAN13(number)
+    My_code.save("new_code.svg")
 

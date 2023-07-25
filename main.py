@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for, flash ,sessions
 from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,add_custom_info,update_products,loginn
+from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode
 import pygal
 import psycopg2
 from sqlalchemy import create_engine
@@ -304,6 +304,12 @@ def add_contact():
     add_custom_info(contact)
     return render_template("contact.html")
 
+
+
+
+@app.context_processor
+def inject_barcode():
+   return {'generate_barcode': generate_barcode}
 
 
 
