@@ -19,32 +19,31 @@
       </div>
       <div class="col-lg-12">
         <div class="p-3"></div>
-        
       </div>
       <div class="col-lg-6">
         <div class="p-3"></div>
-        <h1>Sales per Product</h1>
-        <embed src="{{ bar_chart_data }}" alt="Pie Chart">
+        <h1>Sales Per Product</h1>
+        <embed src="{{ bar_chart_data|safe }}" alt="Pie Chart">
       </div>
       <div class="col-lg-6">
         <div class="p-3"></div>
         <h1>Sales per Month</h1>
-        <embed src="{{ line_chart_data }}"  alt="Pie Chart"> 
+        <embed src="{{ line_chart |safe }}"  alt="Pie Chart"> 
       </div>
       <div class="col-lg-6">
         <div class="p-3"></div>
-        <h1>Remaing_Stock</h1>
-        <embed src="{{ bar_chart1|safe }}" alt="Pie Chart">
+        <h1>Remaing Stock</h1>
+        <embed src="{{ bar_chart|safe }}" alt="Pie Chart">
       </div>
       <div class="col-lg-6">
         <div class="p-3"></div>
-        <h1>Sales Revenue Per Day</h1>
-        <embed src="{{bar_chart|safe}}" alt="Pie Chart">
+        <h1>Revenue per Day</h1>
+        <embed src="{{ line_chart1 }}" alt="Pie Chart">
       </div>
       <div class="col-lg-6">
         <div class="p-3"></div>
-        <h1>Sales Revenue Per Month</h1>
-        <embed src="{{line_chart|safe}}" alt="Pie Chart">
+        <h1>Revenue Per Month</h1>
+        <embed src="{{line_chart2|safe}}" alt="Pie Chart">
       </div>
 
     </div>

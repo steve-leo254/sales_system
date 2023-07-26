@@ -66,7 +66,7 @@ def add_custom_info(contact):
 
 def insert_products(v):
     vs = str(v)
-    q = "insert into products(name,buying_price,selling_price,quantity) "\
+    q = "insert into products(name,buying_price,selling_price) "\
         "values" + vs
     cur.execute(q)
     conn.commit()
@@ -74,7 +74,7 @@ def insert_products(v):
     
 
 
-def sales_per_day():
+def sales_per_month():
     q = "select * from sale_per_month"
     cur.execute(q)
     results = cur.fetchall()

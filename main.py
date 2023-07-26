@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect,url_for, flash ,sessions
+from flask import Flask, render_template, request, redirect,url_for, flash ,session
 from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
-from pgfunc import fetch_data, insert_sales,sales_per_day,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode
+from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode
 import pygal
 import psycopg2
+from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -23,13 +24,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///duka.db'
 
 
 
-# def login_required(view_func):
-#     @wraps(view_func)
-#     def decorated_view(*args, **kwargs):
-#         if not session.get('logged_in') and not session.get('registered'):
-#             return redirect('/login') 
-#         return view_func(*args, **kwargs)
-#     return decorated_view
+def login_required(view_func):
+    @wraps(view_func)
+    def decorated_view(*args, **kwargs):
+        if not session.get('logged_in') and not session.get('registered'):
+            return redirect('/login') 
+        return view_func(*args, **kwargs)
+    return decorated_view
 
 
 
@@ -104,22 +105,24 @@ def user_added():
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
-    error = None
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        users = loginn(email, password)
+        users = add_users()
         if users:
             for user in users:
                 db_email = user[0]
-                db_password = user[1]
-                if db_email == email and db_password == password:
-                    return redirect("/index")
-            error = "Invalid password or email. Please try again."
-        else:
-            error = "Account not found. Please register first."
-    return render_template("index.html", error=error)  
+                db_password_hash = user[1]
 
+                if db_email == email and check_password_hash(db_password_hash, password):
+                    flash('Authentication has been successfully verified!', category='success')
+                    session['logged_in'] = True
+                    return redirect("/")
+            else:
+                flash('Incorrect email or password, please try again.', category='error')
+                return redirect("/login")
+
+    return render_template("login.html")
 
 
 # @app.errorhandler(404)
@@ -138,6 +141,7 @@ def logout():
 
 
 @app.route('/products')
+@login_required
 def products():
     prods = fetch_data("products")
     return render_template('products.html', prods=prods)
@@ -172,6 +176,7 @@ def edit_products():
    
 
 @app.route('/sales')
+@login_required
 def sales():
     sales = fetch_data("sales")
     prods = fetch_data("products")
@@ -189,6 +194,7 @@ def addsale():
 
     
 @app.route('/dashboard')
+@login_required
 def dashboard():
     bar_chart = pygal.Bar()
     sp = sales_per_product()
@@ -202,9 +208,9 @@ def dashboard():
     bar_chart.add('Sale', sale)
     bar_chart_data = bar_chart.render_data_uri()
 
-    # Sales per Day (Line Chart)
+    # Sales per month (Line Chart)
     line_chart = pygal.Line()
-    daily_sales = sales_per_day()
+    daily_sales = sales_per_month()
     dates = []
     sales = []
     for i in daily_sales:
@@ -213,12 +219,12 @@ def dashboard():
     line_chart.title = "Sales per Month"
     line_chart.x_labels = dates
     line_chart.add('Sales', sales)
-    line_chart_data = line_chart.render_data_uri()
+    line_chart = line_chart.render_data_uri()
 
 
     # remaianing_stocks
-    bar_chart1 = pygal.Bar()
-    bar_chart1.title = 'remaining stock'
+    bar_chart = pygal.Bar()
+    bar_chart.title = 'remaining stock'
     remain_stock = remaining_stock()
     
     name1 = []
@@ -226,9 +232,9 @@ def dashboard():
     for i in remain_stock:
        name1.append(i[1])
        stock.append(i[2])
-    bar_chart1.x_labels = name1
-    bar_chart1.add('stock', stock)
-    bar_chart1=bar_chart1.render_data_uri()
+    bar_chart.x_labels = name1
+    bar_chart.add('stock', stock)
+    bar_chart=bar_chart.render_data_uri()
     # print(remaining_stock)
 
      #Graph to show revenue per day
@@ -238,11 +244,11 @@ def dashboard():
     for i in daily_revenue:
      dates.append(i[0])
     sales_revenue_per_day.append(i[1]) 
-    line_chart = pygal.Line()
-    line_chart.title = "Sales Revenue per Day"
-    line_chart.x_labels = dates
-    line_chart.add("Revenue(KSh)", sales_revenue_per_day)
-    bar_chart = bar_chart.render_data_uri()
+    line_chart1 = pygal.Line()
+    line_chart1.title = "Revenue per Day"
+    line_chart1.x_labels = dates
+    line_chart1.add("Revenue(KSh)", sales_revenue_per_day)
+    line_chart1 = line_chart1.render_data_uri()
     
     #Graph to show revenue per month
     monthly_revenue = revenue_per_month()
@@ -251,14 +257,14 @@ def dashboard():
     for i in monthly_revenue:
      dates.append(i[0])
     sales_revenue_per_month.append(i[1]) 
-    line_graph = pygal.Line()
-    line_graph.title = "Sales Revenue per Month"
-    line_graph.x_labels = dates
-    line_graph.add("Revenue(KSh)", sales_revenue_per_month)
-    line_chart = line_chart.render_data_uri()
+    line_chart2 = pygal.Line()
+    line_chart2.title = "Sales Revenue per Month"
+    line_chart2.x_labels = dates
+    line_chart2.add("Revenue(KSh)", sales_revenue_per_month)
+    line_chart2 = line_chart2.render_data_uri()
     
 
-    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart_data=line_chart_data, bar_chart1=bar_chart1, bar_chart=bar_chart, line_chart=line_chart)
+    return render_template("dashboard.html", bar_chart_data=bar_chart_data, line_chart=line_chart, bar_chart=bar_chart, line_chart1=line_chart1, line_chart2=line_chart2)
 
 
 @app.context_processor
@@ -269,6 +275,11 @@ def inject_stockremaining():
 
     return {'remaining_stock':remaining_stock}
 
+
+@app.context_processor
+def inject_datetime():
+    now = datetime.now()
+    return {'current_date': now.strftime('%d-%m-%Y'), 'current_time': now.strftime('%I:%M:%S %p')}
 
 
 
