@@ -8,8 +8,11 @@ from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
-engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
 
+
+# engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
+conn = psycopg2.connect("dbname=duka user=postgres password=leo.steve")
+cur = conn.cursor()
 from passlib.hash import sha256_crypt
 # db = scoped_session(sessionmaker(bind=engine))
 
@@ -21,7 +24,7 @@ from functools import wraps
 
 app = Flask(__name__)
 app.secret_key="leo.steve"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///duka.db' 
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///duka.db' 
 
 
 
@@ -55,7 +58,7 @@ def register():
 
 @app.route('/login')
 def loginpage():
-    return render_template('login.html')
+    return render_template('index.html')
 
 
 @app.route('/signup', methods=["POST", "GET"])
