@@ -3,11 +3,12 @@ from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stoc
 from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode
 import pygal
 import psycopg2
+import sqlalchemy
 from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
 from werkzeug.security import generate_password_hash, check_password_hash
-# engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
+engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
 
 from passlib.hash import sha256_crypt
 # db = scoped_session(sessionmaker(bind=engine))
@@ -108,7 +109,7 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         password = request.form["password"]
-        users = add_users()
+        users = loginn()
         if users:
             for user in users:
                 db_email = user[0]
