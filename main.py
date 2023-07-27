@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect,url_for, flash ,session
 from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
-from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode
+from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode,get_pid
 import pygal
 import psycopg2
 import sqlalchemy
@@ -103,7 +103,7 @@ def user_added():
                 flash('Account created successfully!', category='success')
 
     session['registered'] = True
-    return render_template("index.html")
+    return render_template("login.html")
 
 
 
@@ -126,7 +126,7 @@ def login():
                 flash('Incorrect email or password, please try again.', category='error')
                 return redirect("/login")
 
-    return render_template("login.html")
+    return render_template("index.html")
 
 
 # @app.errorhandler(404)
@@ -327,6 +327,20 @@ def inject_barcode():
    return {'generate_barcode': generate_barcode}
 
 
+@app.route('/generate_barcodes')
+def generate_barcodes():
+    products = get_pid()
+    for prod in prod:
+        if bargen.endswith(".svg.svg"):
+            bargen = bargen[:-4] + ".svg"
+
+        # Create the file if it doesn't exist
+        if not os.path.exists(bargen):
+            open(bargen, 'a').close()
+        os.makedirs(os.path.dirname(bargen), exist_ok=True)
+
+        generate_barcode(product["id"], bargen)
+    return "Barcodes generated successfully!"
 
 if __name__ == "__main__":
     app.run(debug=True)

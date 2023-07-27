@@ -149,9 +149,24 @@ def loginn():
     return results 
 
 
+def get_pid(product_id=None):
+    q = "SELECT id FROM products;"
+    cur.execute(q, (product_id,))
+    results = cur.fetchall()
+    if results:
+        return results[0]
+    else:
+        return None   
+    
 
-def generate_barcode(data):
-    number = "123456781237"
-    My_code=EAN13(number)
-    My_code.save("new_code.svg")
 
+barcode = []
+
+def generate_barcode(product_id, bargen):
+    number = get_pid(product_id)
+    if number is not None:
+        barcode= EAN13(str(number), writer=ImageWriter(), add_checksum=False)
+        barcode.save(bargen)
+        return bargen
+    else:
+        return None
