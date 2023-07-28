@@ -1,7 +1,5 @@
 import psycopg2
-import barcode
-from barcode import EAN13
-from barcode.writer import ImageWriter
+
 try:
     conn = psycopg2.connect("dbname= duka user=postgres password=leo.steve")
     cur = conn.cursor()
@@ -149,24 +147,12 @@ def loginn():
     return results 
 
 
-def get_pid(product_id=None):
+def get_pid():
     q = "SELECT id FROM products;"
-    cur.execute(q, (product_id,))
+    cur.execute(q)
     results = cur.fetchall()
-    if results:
-        return results[0]
-    else:
-        return None   
+    return results
+      
     
 
 
-barcode = []
-
-def generate_barcode(product_id, bargen):
-    number = get_pid(product_id)
-    if number is not None:
-        barcode= EAN13(str(number), writer=ImageWriter(), add_checksum=False)
-        barcode.save(bargen)
-        return bargen
-    else:
-        return None

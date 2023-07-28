@@ -1,12 +1,23 @@
 from flask import Flask, render_template, request, redirect,url_for, flash ,session
 from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
-from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,generate_barcode,get_pid
+from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,get_pid
 import pygal
+
 import psycopg2
+
 import sqlalchemy
-from datetime import datetime, timedelta
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session,sessionmaker
+
+import barcode
+from PIL import Image
+from barcode import generate
+from barcode import Code128
+from barcode.writer import ImageWriter
+from functools import wraps
+
+from datetime import datetime, timedelta
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -323,24 +334,22 @@ def add_contact():
 
 
 @app.context_processor
-def inject_barcode():
-   return {'generate_barcode': generate_barcode}
+def generate_barcode():
+    id_list = get_pid()
+    barcode_paths = []
+    for pid_tuple in id_list:
+        pid = pid_tuple[0]
+        code = Code128(str(pid), writer=ImageWriter())
+        barcode_path = f"static/barcodes/{pid}.png"
+        code.save(barcode_path)
+        barcode_paths.append(barcode_path)
+    return {'generate_barcode': generate_barcode}
 
 
-@app.route('/generate_barcodes')
-def generate_barcodes():
-    products = get_pid()
-    for prod in prod:
-        if bargen.endswith(".svg.svg"):
-            bargen = bargen[:-4] + ".svg"
 
-        # Create the file if it doesn't exist
-        if not os.path.exists(bargen):
-            open(bargen, 'a').close()
-        os.makedirs(os.path.dirname(bargen), exist_ok=True)
 
-        generate_barcode(product["id"], bargen)
-    return "Barcodes generated successfully!"
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

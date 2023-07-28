@@ -90,7 +90,7 @@
             <td>{{ prod[1] }}</td>
             <td>{{ prod[2] }}</td>
             <td>{{ prod[3] }}</td>
-            <td><img src="{{ generate_barcode(prod[0]) }}" alt="Barcode"></td>
+            <td><img src="{{ url_for('static', filename='barcodes/' + prod[0]|string + '.png.png')  }}" alt="Barcode"></td>
             {% if remaining_stock(prod.0) | int < 20 %} <td style="background-color:red;">{{ remaining_stock(prod.0) }}
               </td>
               {% elif remaining_stock(prod.0) | int < 50 %} <td style="background-color: yellow;">{{
@@ -176,4 +176,3 @@
 </body>
 
 </html>
-
