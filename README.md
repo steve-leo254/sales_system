@@ -1,7 +1,7 @@
 # sales_system
 when exstablishing or after exstablishing a business a  alot is required but with the rumpute rise of new technology tools this has been made easy.<br>
-Markel Tech Solutions has made it  for there clients with software  known as CLX <br>
-CLX was a developed to  assists  to assist mankind monitize there business  from day to day <br>
+CloudTech Solutions has made it  for there clients with software  known as CLX <br>
+CLX was  developed to CloudTech Solutions to  assists   mankind in monitizing there business   <br>
    <H1> WHAT THE SOFTWARE'S OFFERS </H1>
     <li>- SALES Monitization</li> 
     <li>- STOCK Monitization</li>
