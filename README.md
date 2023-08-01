@@ -1,7 +1,8 @@
 # sales_system
-when exstablishing or after exstablishing a business a  alot is required but with the rumpute rise of new technology tools this has been made easy<br>
-clx is a software developed by markel techsolutions that assised new enterpreneurs monitize there business <br>
-   <H1> WHAT THE CLX OFFERS </H1>
+when exstablishing or after exstablishing a business a  alot is required but with the rumpute rise of new technology tools this has been made easy.<br>
+Markel Tech Solutions has made it  for there clients with software  known as CLX <br>
+CLX was a developed to  assists  to assist mankind monitize there business  from day to day <br>
+   <H1> WHAT THE SOFTWARE'S OFFERS </H1>
     <li>- SALES Monitization</li> 
     <li>- STOCK Monitization</li>
     <li>-  Item monitization</li>
@@ -19,4 +20,4 @@ clx is a software developed by markel techsolutions that assised new enterpreneu
    <li>js-javascript
    <H3>contact</H3>
 for furthur assistance with a guide or enquires  dont fail to hit me up 
-<li href="steveleo254@gmail.com"><h2>Steveleo@254gmail.com</h2>
+<li href="steveleo254@gmail.com"><li>Steveleo@254gmail.com</li>
