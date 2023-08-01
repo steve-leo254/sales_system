@@ -9,15 +9,15 @@ clx is a software developed by markel techsolutions that assised new enterpreneu
     <li>- Monthly sales</li>
     <li>- Daily revenue </li>
     <li>- Monthly revenue</li>
-    <li>-barcode generation:--- automatically generate barcodes</li>
+    <li>-barcode generation:--- automatically generate barcodes</li><bd>
     
-TECHNOLOGIES USED
-PYTHON..backend development and data processing
-Flask-- web dev framework
-jinja2-- templeting engine for rendering html templates
-html/css---for frontend dev for ui
-postgresql---database
-js-javascript
-contact
+   <H2>TECHNOLOGIES USED<H2>
+   <li>PYTHON..backend development and data processing
+   <li>Flask-- web dev framework
+   <li>jinja2-- templeting engine for rendering html templates
+   <li>html/css---for frontend dev for ui
+   <li>postgresql---database
+   <li>js-javascript
+   <H3>contact</H3>
 for furthur assistance with this or enquires dont fail to hit me up 
-steveleo254@gmail.com
+<a href="steveleo254@gmail.com">
