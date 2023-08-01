@@ -19,5 +19,5 @@ clx is a software developed by markel techsolutions that assised new enterpreneu
    <li>postgresql---database
    <li>js-javascript
    <H3>contact</H3>
-for furthur assistance with this or enquires dont fail to hit me up 
-<a href="steveleo254@gmail.com">
+for furthur assistance with a guide or enquires  dont fail to hit me up 
+<li href="steveleo254@gmail.com"><i>Steveleo@254gmail.com</i>
