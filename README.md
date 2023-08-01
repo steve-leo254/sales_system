@@ -1,15 +1,15 @@
 # sales_system
 when exstablishing or after exstablishing a business a  alot is required but with the rumpute rise of new technology tools this has been made easy
-clx is a software developed by markel techsolutions that assised new enterpreneurs monitize there business 
-    WHAT THE CLX OFFERS
-    -RECORD SALES 
-    - RECORD STOCKS
-    - RECORD REMAINING STOCKS
-    - Daily sales
-    - Monthly sales
-    - Daily revenue 
-    - Monthly revenue
-    -barcode generation:--- automatically generate barcodes
+clx is a software developed by markel techsolutions that assised new enterpreneurs monitize there business <br>
+   <H1> WHAT THE CLX OFFERS </H1>
+    <li>-RECORD SALES</li> 
+    <li>- RECORD STOCKS</li>
+    <li>- RECORD REMAINING STOCKS</li>
+    <li>- Daily sales</li>
+    <li>- Monthly sales</li>
+    <li>- Daily revenue </li>
+    <li>- Monthly revenue</li>
+    <li>-barcode generation:--- automatically generate barcodes</li>
     
 TECHNOLOGIES USED
 PYTHON..backend development and data processing
