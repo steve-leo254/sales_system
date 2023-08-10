@@ -122,18 +122,19 @@ def insert_stock(v):
     return q
 
 
-def add_users(full_name, email, password, confirm_password,time):
-    if not all([full_name, email, password, confirm_password]):
-        return "Error: Please provide all required information."
 
-    if password != confirm_password:
-        return "Error: Passwords do not match."
+# def add_users(full_name, email, password, confirm_password,time):
+#     if not all([full_name, email, password, confirm_password]):
+#         return "Error: Please provide all required information."
 
-    q = "INSERT INTO users  (full_name, email, password, confirm_password,time) " \
-        "VALUES (%s, %s, %s, %s,%s);"
-    cur.execute(q, (full_name, email, password, confirm_password,time))
-    conn.commit()
-    return "User added successfully."
+#     if password != confirm_password:
+#         return "Error: Passwords do not match."
+
+#     q = "INSERT INTO users  (full_name, email, password, confirm_password,time) " \
+#         "VALUES (%s, %s, %s, %s,%s);"
+#     cur.execute(q, (full_name, email, password, confirm_password,time))
+#     conn.commit()
+#     return "User added successfully."
 
 
 

@@ -1,57 +1,81 @@
-from flask import Flask, render_template, request, redirect,url_for, flash ,session
+from flask import Flask, render_template, request, redirect,url_for, flash ,session,g
 from pgfunc import fetch_data, insert_products,insert_stock,remaining_stock,stockremaining,revenue_per_day,revenue_per_month
-from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_users,add_custom_info,update_products,loginn,get_pid
+from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,add_custom_info,update_products,loginn,get_pid
 import pygal
-
 import psycopg2
-
-import sqlalchemy
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session,sessionmaker
-
+import secrets
+import re
 import barcode
 from PIL import Image
-from barcode import generate
 from barcode import Code128
 from barcode.writer import ImageWriter
+from werkzeug.security import  generate_password_hash,check_password_hash
+
+
+
+import psycopg2
+from datetime import datetime, timedelta
 from functools import wraps
 
-from datetime import datetime, timedelta
-
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# engine = create_engine("mysql+pymysql://username:leo.steve@host:port/duka")
+# app = create_app()
+app = Flask(__name__)
+
 conn = psycopg2.connect("dbname=duka user=postgres password=leo.steve")
 cur = conn.cursor()
-from passlib.hash import sha256_crypt
-# db = scoped_session(sessionmaker(bind=engine))
-
-from datetime import datetime, timedelta
-from functools import wraps
 
 
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     email = db.Column(db.String(120), unique=True, nullable=False)
+#     password = db.Column(db.String(120), nullable=False)
+
+# user = db.session.query(User).filter_by(email=email).first()
 
 
-app = Flask(__name__)
-app.secret_key="leo.steve"
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///duka.db' 
+# class User():
+#     def __init__(self, email, password):
+#         self.email = email
+#         self.password = password
+
+#     def __repr__(self):
+#         return f'<User: {self.username}>'
+
+# Assuming you have a list of  users in the database
+# loginn = []
+
+# # Loop through the existing_users list and print all users
+# for users in loginn:
+#     print(users)
 
 
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+    return wrap
 
-def login_required(view_func):
-    @wraps(view_func)
-    def decorated_view(*args, **kwargs):
-        if not session.get('logged_in') and not session.get('registered'):
-            return redirect('/login') 
-        return view_func(*args, **kwargs)
-    return decorated_view
 
+@app.before_request
+def restrict_pages():
+    # List of routes that require authentication
+    protected_routes = ['/products', '/sales', '/dashboard', '/stock']
 
+    # Check if the requested path is a protected route
+    if request.path in protected_routes and not session.get('logged_in') and not session.get('registered'):
+        return redirect(url_for('login'))
+    
 
 
 @app.route('/')
 def landing():
+    if 'loggedin' in session:
+        return render_template('index.html',username=session['fullname'])
     return render_template("landing.html")
 
 
@@ -67,82 +91,84 @@ def register():
    return render_template('register.html')
 
 
-@app.route('/login')
-def loginpage():
-    return render_template('index.html')
+# @app.route('/login')
+# def loginpage():
 
+#     return render_template('login.html')
+from datetime import datetime  # Import datetime module
 
 @app.route('/signup', methods=["POST", "GET"])
-def user_added():
-    if request.method == "POST":
-        full_name = request.form["full_name"]
-        email = request.form["email"]
-        password = request.form["password"]
-        confirm_password = request.form["confirm_password"]
+def signup():
+    if request.method == 'POST' and 'fullname' in request.form and 'password' in request.form and 'email' in request.form:
+        fullname = request.form['fullname']
+        password = request.form['password']
+        email = request.form['email']
 
-        # Validation checks before registration
-        if len(full_name) < 1:
-            flash('Full name must be greater than 1 character.', category='error')
-            return redirect("/register")
-        elif len(email) < 10:
-            flash('Email must be greater than 10 characters.', category='error')
-            return redirect("/register")
-        elif password != confirm_password:
-            flash('Passwords don\'t match. Please try again', category='error')
-            return redirect("/register")
-        elif len(password) < 6:
-            flash('Password must be at least 6 characters.', category='error')
-            return redirect("/register")
+        _hashed_password = generate_password_hash(password)
+        
+        # Check if the email already exists in the database
+        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
+        emails = cur.fetchone()
 
-        # Hash the password before storing it in the database
-        hashed_password = generate_password_hash(password)
+        # Email Validation
+        if emails:
+            flash("Email is already in use")
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            flash("Invalid email address")
+        elif not re.match(r'[A-Za-z]+', fullname):
+            flash("Full name must contain characters and numbers")
+        elif not  password or not email:
+            flash("Please fill out the form")
+        else:
+            cur.execute("INSERT INTO users (fullname, email, password) VALUES ( %s, %s, %s)",
+                        (fullname, email, _hashed_password))
+            conn.commit()
+            flash("You have registered successfully!")
+    elif request.method == "POST":
+        flash("Please fill out the form")
 
-        # To check if the email already exists in the database
-        with conn.cursor() as cur:
-            cur.execute("SELECT COUNT(*) FROM users WHERE email = %s", (email,))
-            result = cur.fetchone()
-            if result[0] > 0:
-                flash('Email already exists! Please use another email!', category='error')
-                return redirect("/register")
+    return render_template("register.html")
+
+
+
+secret_key = secrets.token_hex(16)
+app.secret_key = secret_key
+
+
+@app.route("/login",methods=["POST","GET"])
+def login():
+  
+
+    #checking email and password are in form
+    if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
+        email=request.form["email"]
+        password= request.form["password"]
+        print(password)
+        print(email) 
+        # cheking account existing in in SQL
+        cur.execute("SELECT * FROM users WHERE email = %s", (email,))
+        user=cur.fetchone()
+        print(user) 
+        #PRINT WORKING CAN SEE USERS DETAILS IN TERMINAL
+        if user:
+            password_rs=user[3]
+            print(password_rs) 
+
+            if check_password_hash(password_rs,password):
+                session['loggedin'] = True
+                session['email']= user[2]
+                session['id']= user[0]
+                session['fullname']=user[1]   
+                return redirect("/")
             else:
-                # Adding the new user to the database, after all checks are passed.
-                with conn.cursor() as cur:
-                    cur.execute(
-                        "INSERT INTO users (full_name, email, password, confirm_password, time) VALUES (%s, %s, %s, %s, now())",
-                        (full_name, email, hashed_password, confirm_password))
-                conn.commit()
-                flash('Account created successfully!', category='success')
-
-    session['registered'] = True
+                flash('Incorrect email/password')
+        else:
+            flash("user desnot exist")
+    
     return render_template("login.html")
 
+    # return render_template("index.html")
 
-
-@app.route('/login', methods=["POST", "GET"])
-def login():
-    if request.method == "POST":
-        email = request.form["email"]
-        password = request.form["password"]
-        users = loginn()
-        if users:
-            for user in users:
-                db_email = user[0]
-                db_password_hash = user[1]
-
-                if db_email == email and check_password_hash(db_password_hash, password):
-                    flash('Authentication has been successfully verified!', category='success')
-                    session['logged_in'] = True
-                    return redirect("/")
-            else:
-                flash('Incorrect email or password, please try again.', category='error')
-                return redirect("/login")
-
-    return render_template("index.html")
-
-
-# @app.errorhandler(404)
-# def page_not_found(error):
-#     return render_template('page_not_found.html'),404
 
 
 
@@ -152,7 +178,12 @@ def logout():
     flash('You have been logged out. Would you like to gain access? Kindly log in.', category='error')
     return redirect('/login')
 
-        
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page_not_found.html'),404
+
 
 
 @app.route('/products')
@@ -299,6 +330,7 @@ def inject_datetime():
 
 
 @app.route('/stock')
+@login_required
 def stock():
     stock = fetch_data("stock")
     prods= fetch_data("products")
@@ -316,6 +348,7 @@ def addstock():
 
 
 @app.route('/contact')
+@login_required
 def contact():
     return render_template("contact.html")
 
@@ -352,5 +385,6 @@ def generate_barcode():
 
 
 if __name__ == "__main__":
+    
     app.run(debug=True)
  

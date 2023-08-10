@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>login</title>
     <link rel="shortcut icon" href="/static/img/favicon.png" type="image/x-icon">
+    <!-- <link href="/static/functions/mf_form.js" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -162,25 +163,38 @@
         </div>
         <form action="/login" method="post">
             <h3>Login Here</h3>
-           
-        
-                <label for="username">Username</label>
-                <input type="text" placeholder="Email or Phone" id="username" name="email">
-        
-                <label for="password">Password</label>
-                <input type="password" placeholder="Password" id="password" name="password">
-        
-                <button type="submit">Log In</button>
-                <div class="social">
-                    <div class="go"><i class="fab fa-google"></i> Google</div>
-                    <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
-                </div>
-                <a href="{{ url_for('register') }}">Don't have an account? Sign up</a>
-            
+            <label for="username">Username</label>
+
+            <input type="text" placeholder="Email or Phone" id="username" name="email">
+
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password" name="password">
+
+
+            <button type="submit">Log In</button>
+            <div class="social">
+                <div class="go"><i class="fab fa-google"></i> Google</div>
+                <div class="fb"><i class="fab fa-facebook"></i> Facebook</div>
+            </div>
+            <a href="{{ url_for('register') }}">Don't have an account? Sign up</a>
+
         </form>
-        </body>
-        </html>
-        
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                <span arial-hidden="true">x</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </body>
+
+</html>
+
 
 </body>
 
