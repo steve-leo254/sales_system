@@ -4,13 +4,12 @@ from pgfunc import fetch_data, insert_sales,sales_per_month,sales_per_product,ad
 import pygal
 import psycopg2
 import secrets
-import re
 import barcode
 from PIL import Image
 from barcode import Code128
 from barcode.writer import ImageWriter
 from werkzeug.security import  generate_password_hash,check_password_hash
-
+import re
 
 
 import psycopg2
@@ -95,7 +94,7 @@ def register():
 # def loginpage():
 
 #     return render_template('login.html')
-from datetime import datetime  # Import datetime module
+# Import datetime module
 
 @app.route('/signup', methods=["POST", "GET"])
 def signup():
