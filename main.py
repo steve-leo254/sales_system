@@ -53,7 +53,7 @@ cur = conn.cursor()
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-        if 'logged_in' in session:
+        if 'loggedin' in session:
             return f(*args, **kwargs)
         else:
             flash("You need to login first")
@@ -67,7 +67,7 @@ def restrict_pages():
     protected_routes = ['/products', '/sales', '/dashboard', '/stock']
 
     # Check if the requested path is a protected route
-    if request.path in protected_routes and not session.get('logged_in') and not session.get('registered'):
+    if request.path in protected_routes and not session.get('loggedin') and not session.get('registered'):
         return redirect(url_for('login'))
     
 
