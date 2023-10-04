@@ -25,29 +25,6 @@ conn = psycopg2.connect("dbname=duka user=postgres password=leo.steve")
 cur = conn.cursor()
 
 
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     email = db.Column(db.String(120), unique=True, nullable=False)
-#     password = db.Column(db.String(120), nullable=False)
-
-# user = db.session.query(User).filter_by(email=email).first()
-
-
-# class User():
-#     def __init__(self, email, password):
-#         self.email = email
-#         self.password = password
-
-#     def __repr__(self):
-#         return f'<User: {self.username}>'
-
-# Assuming you have a list of  users in the database
-# loginn = []
-
-# # Loop through the existing_users list and print all users
-# for users in loginn:
-#     print(users)
-
 
 def login_required(f):
     @wraps(f)
@@ -89,12 +66,6 @@ def home():
 def register():
    return render_template('register.html')
 
-
-# @app.route('/login')
-# def loginpage():
-
-#     return render_template('login.html')
-# Import datetime module
 
 @app.route('/signup', methods=["POST", "GET"])
 def signup():
@@ -142,8 +113,8 @@ def login():
     if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
         email=request.form["email"]
         password= request.form["password"]
-        print(password)
-        print(email) 
+        # print(password)
+        # print(email) 
         # cheking account existing in in SQL
         cur.execute("SELECT * FROM users WHERE email = %s", (email,))
         user=cur.fetchone()
@@ -151,7 +122,7 @@ def login():
         #PRINT WORKING CAN SEE USERS DETAILS IN TERMINAL
         if user:
             password_rs=user[3]
-            print(password_rs) 
+            # print(password_rs) 
 
             if check_password_hash(password_rs,password):
                 session['loggedin'] = True

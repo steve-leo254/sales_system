@@ -1132,13 +1132,6 @@ input[type="submit"].btn-md,
 
 }
 
-button.btn-lg,
-input[type=reset].btn-lg,
-input[type="button"].btn-lg,
-input[type="submit"].btn-lg,
-.sigma_btn.btn-lg {
-
-}
 
 .btn-link {
   transition: 0.3s;
